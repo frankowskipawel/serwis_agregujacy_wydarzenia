@@ -1,13 +1,13 @@
-package com.sda.serwis_agregujacy_wydarzenia;
+package com.sda;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SerwisAgregujacyWydarzeniaApplication {
+public class SAWApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SerwisAgregujacyWydarzeniaApplication.class, args);
+        SpringApplication.run(SAWApplication.class, args);
     }
 
 }
