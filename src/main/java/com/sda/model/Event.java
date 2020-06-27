@@ -10,9 +10,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name="`event`")
+@Table(name="event")
 public class Event {
 
     @Id
@@ -25,6 +23,7 @@ public class Event {
     private Time time;
     @ManyToOne
     private User user;
+
 
 
 }
