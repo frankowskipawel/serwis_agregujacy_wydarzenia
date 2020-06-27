@@ -58,9 +58,6 @@ public class UserService implements UserDetailsService {
 
     public void createUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findByRoleName("USER"));
-        user.setRoles(roles);
         userRepository.save(user);
     }
 
