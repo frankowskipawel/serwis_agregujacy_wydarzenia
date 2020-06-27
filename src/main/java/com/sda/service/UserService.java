@@ -2,6 +2,7 @@ package com.sda.service;
 
 import com.sda.model.Role;
 import com.sda.model.User;
+import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,9 @@ public class UserService implements UserDetailsService {
     UserRepository userRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     @Transactional
@@ -51,4 +55,13 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 user.isActive(), true, true, true, authorities);
     }
+
+    public void createUser(User user){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByRoleName("USER"));
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
+
 }
