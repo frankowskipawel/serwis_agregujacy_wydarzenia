@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -18,9 +21,13 @@ public class User {
     @GeneratedValue
     @Column(name = "user_id")
     private int id;
+    @NotEmpty(message = "Pole nie może być puste")
     private String firstName;
+    @NotEmpty(message = "Pole nie może być puste")
     private String lastName;
+    @Email(message = "Błedny format")
     private String email;
+    @Size(min = 8, message = "Hasło musi mieć min 8 znaków")
     private String password;
     private boolean active;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
