@@ -4,6 +4,7 @@ import com.sda.model.User;
 import com.sda.repository.UserRepository;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +42,24 @@ public class UserController {
             return "redirect:/login";
         }
     }
+//
+//    @GetMapping("/details")
+//    public String details(Model model) {
+//        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//       User portalUser = userRepository.findUsersByEmail(user.getUsername());
+//        model.addAttribute("portalUser", portalUser);
+//
+//        return "/details";
+//    }
 
+
+//    @PostMapping("/details")
+//    public String updateEmail(User user, BindingResult result, Model model){
+//        User temporaryPortalUser = UserRepository.findById(User.getId()).get();
+//        temporaryPortalUser.setEmail(user.getEmail());
+//        userRepository.save(temporaryPortalUser);
+//        model.addAttribute("portalUser", temporaryPortalUser);
+//        return "details";
+//    }
 
 }
