@@ -68,27 +68,4 @@ public class UserController {
         }
     }
 
-
-
-
-//
-//    @GetMapping("/details")
-//    public String details(Model model) {
-//        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//       User portalUser = userRepository.findUsersByEmail(user.getUsername());
-//        model.addAttribute("portalUser", portalUser);
-//
-//        return "/details";
-//    }
-
-
-//    @PostMapping("/details")
-//    public String updateEmail(User user, BindingResult result, Model model){
-//        User temporaryPortalUser = UserRepository.findById(User.getId()).get();
-//        temporaryPortalUser.setEmail(user.getEmail());
-//        userRepository.save(temporaryPortalUser);
-//        model.addAttribute("portalUser", temporaryPortalUser);
-//        return "details";
-//    }
-
 }
