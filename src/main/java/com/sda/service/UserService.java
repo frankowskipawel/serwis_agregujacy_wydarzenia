@@ -56,9 +56,9 @@ public class UserService implements UserDetailsService {
                 user.isActive(), true, true, true, authorities);
     }
 
-    public void createUser(User user){
+    public User createUser(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
 }

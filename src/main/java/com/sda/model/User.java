@@ -27,7 +27,7 @@ public class User {
     private String lastName;
     @Email(message = "Błedny format")
     private String email;
-    @Size(min = 8, max = 30)
+    @Size(min = 8)
     private String password;
     private boolean active;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
