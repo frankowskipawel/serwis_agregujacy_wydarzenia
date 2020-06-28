@@ -32,6 +32,7 @@
                         <div class="form-group">
                             <input type="date" class="form-control input-lg" placeholder="date" required="true" th:field="*{dateString}"/>
                             <span th:if="${#fields.hasErrors('date')}" th:errors="*{dateString}" class="text-danger"> Date error</span>
+                            <span  style="color: red" th:if="${alertDate != null}" th:text="${alertDate}"> </span>
                         </div>
                         <div class="form-group">
                             <input type="time" class="form-control input-lg" placeholder="time" required="true" th:field="*{timeString}"/>
