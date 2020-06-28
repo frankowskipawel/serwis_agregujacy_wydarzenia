@@ -18,6 +18,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <input type="text" class="form-control input-lg" placeholder="Name" required="true" th:field="*{name}"/>
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"> Name Error</span>
+                    </div>
+                    <div class="form-group">
                         <input type="text" class="form-control input-lg" placeholder="Email" required="true" th:field="*{email}"/>
                         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"> Email Error</span>
                     </div>
