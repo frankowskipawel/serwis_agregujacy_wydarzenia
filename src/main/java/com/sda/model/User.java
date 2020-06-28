@@ -21,11 +21,11 @@ public class User {
     @GeneratedValue
     @Column(name = "user_id")
     private int id;
-    @NotEmpty(message = "Pole nie może być puste")
+    @NotEmpty
     private String firstName;
-    @NotEmpty(message = "Pole nie może być puste")
+    @NotEmpty
     private String lastName;
-    @Email(message = "Błedny format")
+    @Email
     private String email;
     @Size(min = 8)
     private String password;
