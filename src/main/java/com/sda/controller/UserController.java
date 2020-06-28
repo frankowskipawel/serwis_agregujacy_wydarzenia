@@ -16,32 +16,31 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "/login";
     }
 
     @GetMapping("/register")
-    public String registerPage(Model model){
+    public String registerPage(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult result){
-        if (result.hasErrors()){
+    public String register(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
             return "register";
-        }else{
+        } else {
             userService.createUser(user);
             return "redirect:/login";
         }
     }
-
 
 
 }

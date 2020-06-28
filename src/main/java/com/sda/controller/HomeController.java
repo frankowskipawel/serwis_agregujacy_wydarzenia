@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
 
     @GetMapping("/home")
