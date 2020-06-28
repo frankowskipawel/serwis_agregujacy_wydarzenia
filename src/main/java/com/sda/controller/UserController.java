@@ -67,6 +67,10 @@ public class UserController {
             return "redirect:/login";
         }
     }
+
+
+
+
 //
 //    @GetMapping("/details")
 //    public String details(Model model) {
