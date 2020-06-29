@@ -6,7 +6,9 @@
 <body>
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
+    <br>
+    <h2>Upcoming events</h2>
+    <br>
 
     <table class="table table-hover">
         <thead>
@@ -21,23 +23,18 @@
         </thead>
         <tbody>
         <tr th:each="event:${pages}" th:object="${event}">
-            <td><span th:text="${event.date}"></span></td>
-            <td><span th:text="${event.time}"></span></td>
-            <td><h5><span th:text="${event.title}"></span></h5></td>
-<!--            <td><span th:text="${event.description}"></span></td>-->
-<!--            <td><span th:text=" ${#strings.substring(event.description,0,5)}  "></span></td>-->
+            <td><span th:text="${event.startDate}"></span></td>
+            <td><span th:text="${event.startTime}"></span></td>
+            <td><h5><a th:href="@{/eventShow(eventId=${event.id})}" th:text="${event.title}"></a></h5></td>
             <div th:if="${#strings.length(event.description)>50}">
             <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>
             </div>
             <div th:if="${#strings.length(event.description)<=50}">
                 <td><span th:text="${event.title}"></span></td>
             </div>
-
-<!--            <td><span  th:text=" ${#strings.abbreviate(event.description,0,5)}  "></span></td>-->
-
                         <td>
                             <div class="btn-group-vertical">
-                                <a th:href="@{/showEvent(eventId=${event.id})}" class="btn btn-primary btn-sm"
+                                <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-primary btn-sm"
                                    role="button">Show</a>
                             </div>
                         </td>

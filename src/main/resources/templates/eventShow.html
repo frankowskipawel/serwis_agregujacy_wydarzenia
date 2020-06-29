@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+    <br>
+    <h2>Event details</h2>
+    <br>
+
+    <div class="jumbotron">
+        <h1><span th:text="${event.title}"></span></h1>
+        <h5><span th:text="${event.startDate+' at '+event.startTime+' '+event.city}"></span></h5>
+        <br>
+        <br>
+    <div class="container">
+        <label>Description:</label><br>
+        <h6><span th:text="${event.description}"></span></h6>
+    </div>
+        <br>
+    <div class="container">
+        <label>Start:</label><br>
+        <h6><span th:text="${event.startDate+' at '+event.startTime}"></span></h6>
+    </div>
+        <br>
+    <div class="container">
+        <label>End:</label><br>
+        <h6><span th:text="${event.endDate+' at '+event.endTime}"></span></h6>
+    </div>
+        <br>
+    <div class="container">
+        <label>City:</label><br>
+        <h6><span th:text="${event.city}"></span></h6>
+    </div>
+</div>
+</div>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

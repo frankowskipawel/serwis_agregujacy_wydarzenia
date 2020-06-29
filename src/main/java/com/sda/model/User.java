@@ -1,5 +1,6 @@
 package com.sda.model;
 
+import com.sda.controller.UniqueEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class User {
     @NotEmpty
     private String lastName;
     @Email
+    @UniqueEmail(message = "account already exists!")
     private String email;
     @Size(min = 8)
     private String password;
