@@ -36,8 +36,10 @@ public class SearchController {
     }
 
     @PostMapping("/search")
-    public String searchPost(Model model, @RequestParam("query") String query, @RequestParam("page") Optional<Integer> page){
+    public String searchPost(Model model, @RequestParam("query") String query, @RequestParam("filterQuery") String filterQuery, @RequestParam("page") Optional<Integer> page){
         model.addAttribute("query", query);
+
+        System.out.println(filterQuery);
 
         int currentPage = page.orElse(1);
         Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending().and(Sort.by("startTime").ascending()));
