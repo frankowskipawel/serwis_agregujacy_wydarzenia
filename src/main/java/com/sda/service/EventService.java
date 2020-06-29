@@ -29,6 +29,10 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
+    public Page<Event> findAllBySearchQueryPagination(Pageable pageable, String query) {
+        return eventRepository.findAllByTitleContaining(pageable, query);
+    }
+
     public Optional<Event> findById(int id){
         return eventRepository.findById(id);
     }
