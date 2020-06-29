@@ -40,6 +40,7 @@ public class SearchController {
         model.addAttribute("query", query);
 
         System.out.println(filterQuery);
+        model.addAttribute("filterQuery", filterQuery);
 
         int currentPage = page.orElse(1);
         Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending().and(Sort.by("startTime").ascending()));
