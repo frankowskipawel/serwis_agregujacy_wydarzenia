@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -28,4 +29,7 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
+    public Optional<Event> findById(int id){
+        return eventRepository.findById(id);
+    }
 }
