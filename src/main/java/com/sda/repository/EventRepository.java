@@ -6,6 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -13,5 +16,5 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     Page<Event> findAllByTitleContaining(Pageable pageable, String query);
 
-
+    Page<Event> findAllByTitleContainingAndAndStartDateAndEndTimeAfter(Pageable pageable, String query, LocalDate date, LocalTime time);
 }

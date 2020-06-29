@@ -7,6 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +34,10 @@ public class EventService {
 
     public Page<Event> findAllBySearchQueryPagination(Pageable pageable, String query) {
         return eventRepository.findAllByTitleContaining(pageable, query);
+    }
+
+    public Page<Event> findAllByTitleContainingAndAndStartDateAndEndTimeAfter(Pageable pageable, String query, LocalDate date, LocalTime time) {
+        return eventRepository.findAllByTitleContainingAndAndStartDateAndEndTimeAfter(pageable, query, date, time);
     }
 
     public Optional<Event> findById(int id){

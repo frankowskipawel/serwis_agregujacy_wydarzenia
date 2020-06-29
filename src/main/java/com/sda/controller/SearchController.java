@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,20 +33,25 @@ public class SearchController {
 
     @GetMapping("/search")
     public String search(Model model){
-        System.out.println("getgetget");
+
         return "search";
     }
 
     @PostMapping("/search")
-    public String searchPost(Model model, @RequestParam("query") String query, @RequestParam("filterQuery") String filterQuery, @RequestParam("page") Optional<Integer> page){
+    public String searchPost(Model model, @RequestParam("query") String query, @RequestParam("filterQuery") String filter, @RequestParam("page") Optional<Integer> page){
         model.addAttribute("query", query);
 
-        System.out.println(filterQuery);
-        model.addAttribute("filterQuery", filterQuery);
+        System.out.println(filter);
+        model.addAttribute("filterQuery", filter);
 
         int currentPage = page.orElse(1);
         Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending().and(Sort.by("startTime").ascending()));
-        Page<Event> eventPage = eventService.findAllBySearchQueryPagination(pageable, query);
+//        Page<Event> eventPage = eventService.findAllBySearchQueryPagination(pageable, query);
+        Page<Event> eventPage = eventService.findAllByTitleContainingAndAndStartDateAndEndTimeAfter(pageable, query, LocalDate.now(), LocalTime.now());
+
+
+
+
         model.addAttribute("pages", eventPage);
         int totalPages = eventPage.getTotalPages();
         if (totalPages > 0) {
