@@ -45,9 +45,10 @@ public class SearchController {
         model.addAttribute("filterQuery", filter);
 
         int currentPage = page.orElse(1);
-        Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending().and(Sort.by("startTime").ascending()));
-//        Page<Event> eventPage = eventService.findAllBySearchQueryPagination(pageable, query);
-        Page<Event> eventPage = eventService.findAllByTitleContainingAndAndStartDateAndEndTimeAfter(pageable, query, LocalDate.now(), LocalTime.now());
+        Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending());
+        Page<Event> eventPage = eventService.findAllBySearchQueryPagination(pageable, query); //all
+//        Page<Event> eventPage = eventService.findAllByTitleContainingAndAndStartDateAndEndTimeBefore(pageable, query, LocalDate.now(), LocalTime.now()); //ongoing bug
+//        Page<Event> eventPage = eventService.findAllByTitleContainingAndEndDateAfter(pageable, query, LocalDate.now(), LocalTime.now()); //ongoing
 
 
 

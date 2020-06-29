@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 @Controller
@@ -39,7 +42,7 @@ public class EventController {
     }
 
     @PostMapping("/event/addEvent")
-    public String register(@Valid Event event, BindingResult result, Model model) {
+    public String register(@Valid Event event, BindingResult result, Model model) throws ParseException {
         event.setTitle(event.getTitle().trim());
         event.setDescription(event.getDescription().trim());
         event.setCity(event.getCity().trim());
@@ -58,30 +61,31 @@ public class EventController {
         if (result.hasErrors()) {
             return "event/addEvent";
         } else {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String startDateTime = event.getStartDateString()+" "+event.getStartTimeString();
+            Date localStartDateTime = parser.parse(startDateTime);
+            String endDateTime = event.getEndDateString()+" "+event.getEndTimeString();
+            Date localEndDateTime = parser.parse(endDateTime);
+            System.out.println("START:"+localStartDateTime);
+            System.out.println("END:"+localEndDateTime);
 
-            LocalDate localStartDate = LocalDate.parse(event.getStartDateString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            if (localStartDate.isBefore(LocalDate.now())){
+            if (localStartDateTime.before(new Date())){
                 model.addAttribute("alertStartDate", "The date cannot be a past date");
                 return "event/addEvent";}
 
-            LocalTime localStartTime = LocalTime.parse(event.getStartTimeString(), DateTimeFormatter.ofPattern("HH:mm"));
 
-            event.setStartDate(localStartDate);
-            event.setStartTime(localStartTime);
-
+            event.setStartDate(localStartDateTime);
             LocalDate localEndDate = LocalDate.parse(event.getEndDateString(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            if (localStartDate.isAfter(localEndDate)){
+            if (localStartDateTime.after(localEndDateTime)){
                 model.addAttribute("alertEndDate", "The date cannot be earlier than the start date ");
                 return "event/addEvent";}
 
-            LocalTime localEndTime = LocalTime.parse(event.getEndTimeString(), DateTimeFormatter.ofPattern("HH:mm"));
-
-            if (localStartDate.isEqual(localEndDate) && localStartTime.isAfter(localEndTime)){
+            if (localStartDateTime.equals(localEndDate) && localStartDateTime.after(localEndDateTime)){
                 model.addAttribute("alertEndTime", "The time cannot be earlier than the start time ");
                 return "event/addEvent";}
 
-            event.setEndDate(localEndDate);
-            event.setEndTime(localEndTime);
+            event.setEndDate(localEndDateTime);
+
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User authUser = userService.findUsersByEmail(auth.getName());
             event.setUser(authUser);

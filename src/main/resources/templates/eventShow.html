@@ -12,7 +12,7 @@
 
     <div class="jumbotron">
         <h1><span th:text="${event.title}"></span></h1>
-        <h5><span th:text="${event.startDate+' at '+event.startTime+' '+event.city}"></span></h5>
+        <h5><span th:text="${event.startDate+' '+event.city}"></span></h5>
         <br>
         <br>
     <div class="container">
@@ -22,7 +22,7 @@
         <br>
     <div class="container">
         <label>Start:</label><br>
-        <h6><span th:text="${event.startDate+' at '+event.startTime}"></span></h6>
+        <h6><span th:text="${event.startDate}"></span></h6>
     </div>
         <br>
     <div class="container">

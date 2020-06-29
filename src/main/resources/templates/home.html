@@ -24,7 +24,7 @@
         <tbody>
         <tr th:each="event:${pages}" th:object="${event}">
             <td><span th:text="${event.startDate}"></span></td>
-            <td><span th:text="${event.startTime}"></span></td>
+<!--            <td><span th:text="${event.startTime}"></span></td>-->
             <td><h5><a th:href="@{/eventShow(eventId=${event.id})}" th:text="${event.title}"></a></h5></td>
             <div th:if="${#strings.length(event.description)>50}">
             <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>

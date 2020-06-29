@@ -36,9 +36,13 @@ public class EventService {
         return eventRepository.findAllByTitleContaining(pageable, query);
     }
 
-    public Page<Event> findAllByTitleContainingAndAndStartDateAndEndTimeAfter(Pageable pageable, String query, LocalDate date, LocalTime time) {
-        return eventRepository.findAllByTitleContainingAndAndStartDateAndEndTimeAfter(pageable, query, date, time);
-    }
+//    public Page<Event> findAllByTitleContainingAndAndStartDateAndEndTimeBefore(Pageable pageable, String query, LocalDate date, LocalTime time) {
+//        return eventRepository.findAllByTitleContainingAndAndStartDateAndEndTimeBefore(pageable, query, date, time);
+//    }
+
+//    public Page<Event> findAllByTitleContainingAndEndDateAfter(Pageable pageable, String query, LocalDate date, LocalTime time) {
+//        return eventRepository.findAllByTitleContainingAndEndDateAfter(pageable, query, date, time);
+//    }
 
     public Optional<Event> findById(int id){
         return eventRepository.findById(id);
