@@ -30,13 +30,26 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="date" class="form-control input-lg" placeholder="date" required="true" th:field="*{dateString}"/>
-                            <span th:if="${#fields.hasErrors('date')}" th:errors="*{dateString}" class="text-danger"> Date error</span>
-                            <span  style="color: red" th:if="${alertDate != null}" th:text="${alertDate}"> </span>
+                            <label>Start</label>
+                            <input type="date" class="form-control input-lg" placeholder="date" required="true" th:field="*{startDateString}"/>
+                            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDateString}" class="text-danger"> Date error</span>
+                            <span  style="color: red" th:if="${alertStartDate != null}" th:text="${alertStartDate}"> </span>
                         </div>
                         <div class="form-group">
-                            <input type="time" class="form-control input-lg" placeholder="time" required="true" th:field="*{timeString}"/>
-                            <span th:if="${#fields.hasErrors('time')}" th:errors="*{timeString}" class="text-danger"> Time error</span>
+                            <input type="time" class="form-control input-lg" placeholder="time" required="true" th:field="*{startTimeString}"/>
+                            <span th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTimeString}" class="text-danger"> Time error</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>End</label>
+                            <input type="date" class="form-control input-lg" placeholder="date" required="true" th:field="*{endDateString}"/>
+                            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDateString}" class="text-danger"> Date error</span>
+                            <span  style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" class="form-control input-lg" placeholder="time" required="true" th:field="*{endTimeString}"/>
+                            <span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTimeString}" class="text-danger"> Time error</span>
+                            <span  style="color: red" th:if="${alertEndTime != null}" th:text="${alertEndTime}"> </span>
                         </div>
                         <div class="form-group" >
                             <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create"/>

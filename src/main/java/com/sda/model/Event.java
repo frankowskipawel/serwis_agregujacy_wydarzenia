@@ -25,15 +25,20 @@ public class Event {
     @Size(min = 20, message = "size must be min 20 letters")
     private String description;
     private String city;
-    private LocalDate date;
-    private LocalTime time;
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
     @ManyToOne
     private User user;
 
     @Transient
-    String dateString;
+    String startDateString;
     @Transient
-    String timeString;
-
+    String startTimeString;
+    @Transient
+    String endDateString;
+    @Transient
+    String endTimeString;
 
 }
