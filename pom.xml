@@ -86,6 +86,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.0.10.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-appsactivity</artifactId>
+            <version>v1-rev382-1.25.0</version>
+        </dependency>
     </dependencies>
 
     <build>

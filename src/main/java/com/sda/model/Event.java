@@ -1,6 +1,7 @@
 package com.sda.model;
 
 
+
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -20,9 +21,10 @@ public class Event {
     private String city;
     private Date startDate;
     private Date endDate;
-
     @ManyToOne
     private User user;
+    @ManyToOne
+    private Picture picture;
 
     @Transient
     String startDateString;

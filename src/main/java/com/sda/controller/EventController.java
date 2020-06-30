@@ -3,6 +3,7 @@ package com.sda.controller;
 import com.sda.model.Event;
 import com.sda.model.User;
 import com.sda.service.EventService;
+import com.sda.service.PictureService;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,10 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -31,17 +29,20 @@ public class EventController {
     private UserService userService;
     @Autowired
     private EventService eventService;
+    @Autowired
+    private PictureService pictureService;
 
 
     @GetMapping("/event/addEvent")
-    public String addEventGet(Model model) {
+    public String addEventGet(Model model, @RequestParam(value = "picture", required = false) String photoFileName) {
         Event event = new Event();
+        event.setPicture(pictureService.findByFileName(photoFileName));
         model.addAttribute("event", event);
         return "event/addEvent";
     }
 
     @PostMapping("/event/addEvent")
-    public String register(@Valid Event event, BindingResult result, Model model) throws ParseException {
+    public String register(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model) throws ParseException {
         event.setTitle(event.getTitle().trim());
         event.setDescription(event.getDescription().trim());
         event.setCity(event.getCity().trim());
