@@ -13,8 +13,8 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Start date</th>
+            <th>End date</th>
             <th>Name</th>
             <th>Description</th>
             <th></th>
@@ -23,8 +23,8 @@
         </thead>
         <tbody>
         <tr th:each="event:${pages}" th:object="${event}">
-            <td><span th:text="${event.startDate}"></span></td>
-<!--            <td><span th:text="${event.startTime}"></span></td>-->
+            <td><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+            <td><span th:text="${#dates.format(event.endDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
             <td><h5><a th:href="@{/eventShow(eventId=${event.id})}" th:text="${event.title}"></a></h5></td>
             <div th:if="${#strings.length(event.description)>50}">
             <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>
