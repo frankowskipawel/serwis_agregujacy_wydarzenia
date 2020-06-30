@@ -19,6 +19,17 @@
     </ul>
 
     <ul class="nav navbar-nav ml-auto">
+        <form class="form-inline" action="/search" method="post">
+
+            <select name="filterQuery" class="form-control" style="border-radius:0px">
+                <option>past</option>
+                <option>ongoing</option>
+                <option>future</option>
+                <option>all</option>
+            </select>
+            <input style="border-radius:0px" class="form-control mr-sm-2" name="query" type="text" placeholder="Search">
+        <button class="btn btn-success" type="submit">Search</button>
+        </form>
 
         <li class="nav-item">
             <div class="nav-link" sec:authorize="isAuthenticated()">
@@ -29,10 +40,10 @@
             </div>
         </li>
         <li class="nav-item" sec:authorize="isAnonymous()">
-            <a class="nav-link" href="/register">Zarejestruj</a>
+            <a class="nav-link" href="/register">Register</a>
         </li>
         <li class="nav-item" sec:authorize="isAnonymous()">
-            <a class="nav-link" href="/login">Zaloguj</a>
+            <a class="nav-link" href="/login">Login</a>
         </li>
         </li>
 
@@ -44,7 +55,7 @@
         </li>
 
         <li class="nav-item" sec:authorize="isAuthenticated()">
-            <a class="nav-link" href="/logout">Wyloguj</a>
+            <a class="nav-link" href="/logout">Logout</a>
         </li>
 
     </ul>

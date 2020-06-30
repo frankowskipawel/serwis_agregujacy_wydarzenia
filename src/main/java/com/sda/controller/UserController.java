@@ -1,6 +1,7 @@
 package com.sda.controller;
 
 import com.sda.model.User;
+import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping("/")
@@ -22,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private UserService userService;
@@ -58,37 +63,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult result) {
+    public String register(@Valid @ModelAttribute("user") User user, BindingResult result) {
         if (result.hasErrors()) {
+            System.out.println(user);
             return "register";
         } else {
+            user.setRoles(new HashSet<>());
             user.setActive(true);
+            user.getRoles().add(roleRepository.findByRole("USER"));
+            System.out.println(user);
             userService.createUser(user);
+            System.out.println(user);
             return "redirect:/login";
         }
     }
 
 
 
-
-//
-//    @GetMapping("/details")
-//    public String details(Model model) {
-//        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//       User portalUser = userRepository.findUsersByEmail(user.getUsername());
-//        model.addAttribute("portalUser", portalUser);
-//
-//        return "/details";
-//    }
-
-
-//    @PostMapping("/details")
-//    public String updateEmail(User user, BindingResult result, Model model){
-//        User temporaryPortalUser = UserRepository.findById(User.getId()).get();
-//        temporaryPortalUser.setEmail(user.getEmail());
-//        userRepository.save(temporaryPortalUser);
-//        model.addAttribute("portalUser", temporaryPortalUser);
-//        return "details";
-//    }
 
 }
