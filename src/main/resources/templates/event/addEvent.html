@@ -6,7 +6,7 @@
 <body>
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
+    <h1>Please provide new event</h1>
     <div class="container">
 
         <div class="form-group">
@@ -20,12 +20,66 @@
                 </table>
             </form>
         </div>
+        <form th:action="@{/event/addEvent}" th:object="${event}" method="post">
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="title" required="true"
+                                   th:field="*{title}"/>
+                            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"> Title Error</span>
+                            <span style="color: red" th:if="${alertTitle != null}" th:text="${alertTitle}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="8" type="text" class="form-control input-lg" placeholder="decsription"
+                                      required="true" th:field="*{description}"/>
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                  class="text-danger"> Description error</span>
+                            <span style="color: red" th:if="${alertDescription != null}"
+                                  th:text="${alertDescription}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="city" required="true"
+                                   th:field="*{city}"/>
+                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger">City error</span>
+                            <span style="color: red" th:if="${alertCity != null}" th:text="${alertCity}"> </span>
+                        </div>
 
-        <div class="row" style="margin-top:20px">
-            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <form th:action="@{/event/addEvent}" th:object="${event}" method="post">
-
-                    <div class="form-group" style="width:200px">
+                        <div class="form-group">
+                            <label>Start</label>
+                            <input type="date" class="form-control input-lg" placeholder="date" required="true"
+                                   th:field="*{startDateString}"/>
+                            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDateString}"
+                                  class="text-danger"> Date error</span>
+                            <span style="color: red" th:if="${alertStartDate != null}"
+                                  th:text="${alertStartDate}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" class="form-control input-lg" placeholder="time" required="true"
+                                   th:field="*{startTimeString}"/>
+                            <span style="color: red" th:if="${alertStartDate != null}"
+                                  th:text="${alertStartDate}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <label>End</label>
+                            <input type="date" class="form-control input-lg" placeholder="date" required="true"
+                                   th:field="*{endDateString}"/>
+                            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDateString}"
+                                  class="text-danger"> Date error</span>
+                            <span style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" class="form-control input-lg" placeholder="time" required="true"
+                                   th:field="*{endTimeString}"/>
+                            <span style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create"/>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                    <div class="form-group" style="width:260px">
                         <input type="hidden" id="id_picture" th:field="*{picture.id}"/>
                         <input type="hidden" id="picture" th:field="*{picture.fileName}"/>
                         <img th:if="*{picture.fileName != null}" class="img-thumbnail"
@@ -33,56 +87,11 @@
                         <img th:unless="*{picture.fileName != null}" class="img-thumbnail"
                              th:src="@{|/files/nopictures.jpg|}"/>
                     </div>
+                </div>
 
-                    <fieldset>
-                        <h1>Please provide new event</h1>
-                        <div class="form-group">
-                            <input type="text" class="form-control input-lg" placeholder="title" required="true" th:field="*{title}"/>
-                            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"> Title Error</span>
-                            <span style="color: red" th:if="${alertTitle != null}" th:text="${alertTitle}"> </span>
-                        </div>
-                        <div class="form-group">
-                            <textarea  rows="8" type="text" class="form-control input-lg" placeholder="decsription" required="true" th:field="*{description}"/>
-                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"> Description error</span>
-                            <span style="color: red" th:if="${alertDescription != null}" th:text="${alertDescription}"> </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control input-lg" placeholder="city" required="true" th:field="*{city}"/>
-                            <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger">City error</span>
-                            <span  style="color: red" th:if="${alertCity != null}" th:text="${alertCity}"> </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Start</label>
-                            <input type="date" class="form-control input-lg" placeholder="date" required="true" th:field="*{startDateString}"/>
-                            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDateString}" class="text-danger"> Date error</span>
-                            <span  style="color: red" th:if="${alertStartDate != null}" th:text="${alertStartDate}"> </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="time" class="form-control input-lg" placeholder="time" required="true" th:field="*{startTimeString}"/>
-                            <span  style="color: red" th:if="${alertStartDate != null}" th:text="${alertStartDate}"> </span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label>End</label>
-                            <input type="date" class="form-control input-lg" placeholder="date" required="true" th:field="*{endDateString}"/>
-                            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDateString}" class="text-danger"> Date error</span>
-                            <span  style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="time" class="form-control input-lg" placeholder="time" required="true" th:field="*{endTimeString}"/>
-<!--                            <span  style="color: red" th:if="${alertEndTime != null}" th:text="${alertEndTime}"> </span>-->
-                            <span  style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
-
-                        </div>
-                        <div class="form-group" >
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Create"/>
-                        </div>
-                    </fieldset>
-                </form>
             </div>
-        </div>
+        </form>
+
     </div>
 
 

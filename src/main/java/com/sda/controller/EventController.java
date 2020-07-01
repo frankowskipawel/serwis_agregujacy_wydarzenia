@@ -66,8 +66,6 @@ public class EventController {
             Date localStartDateTime = parser.parse(startDateTime);
             String endDateTime = event.getEndDateString()+" "+event.getEndTimeString();
             Date localEndDateTime = parser.parse(endDateTime);
-            System.out.println("START:"+localStartDateTime);
-            System.out.println("END:"+localEndDateTime);
 
             if (localStartDateTime.before(new Date())){
                 model.addAttribute("alertStartDate", "The date cannot be a past date");

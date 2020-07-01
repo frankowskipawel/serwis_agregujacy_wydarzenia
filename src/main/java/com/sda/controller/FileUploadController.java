@@ -33,8 +33,6 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-//    @Autowired
-//    Cart cart;
 
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
@@ -46,13 +44,12 @@ public class FileUploadController {
     }
 
     @PostMapping("/event/eventAddPhoto")
-    public String handleFileUpload(Model model, @RequestParam("file") MultipartFile file,
+    public String handleFileUpload(Model model, @RequestParam(value = "file", required = false) MultipartFile file,
                                    @RequestParam(value = "event", required = false) Event event,
                                    RedirectAttributes redirectAttributes) throws IOException {
 
-        System.out.println("+++++" + event);
+        if (file.isEmpty()){return "redirect:/event/addEvent";}
         storageService.store(file);
-
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
@@ -63,29 +60,6 @@ public class FileUploadController {
 
         return "redirect:/event/addEvent?picture=" + storageService.getNameLastStorageFile();
     }
-
-//    @PostMapping("/admin/productEditfile")
-//    public String handleFileUploadEditProduct(Model model, @RequestParam("file") MultipartFile file,
-//                                              @ModelAttribute(value = "product") Event event,
-//                                              RedirectAttributes redirectAttributes) throws IOException {
-//
-//        System.out.println("+++++" + event);
-//        storageService.store(file);
-//
-//        redirectAttributes.addFlashAttribute("message",
-//                "You successfully uploaded " + file.getOriginalFilename() + "!");
-//
-//        model.addAttribute("files", storageService.loadAll().map(
-//                path -> MvcUriComponentsBuilder.fromMethodName(com.sda.controller.FileUploadController.class,
-//                        "serveFile", path.getFileName().toString()).build().toUri().toString())
-//                .collect(Collectors.toList()));
-//
-//        model.addAttribute("product", product);
-//        model.addAttribute("picture", storageService.getNameLastStorageFile());
-//
-//        return "redirect:/admin/productEdit?picture=" + storageService.getNameLastStorageFile()+
-//                "&productId="+product.getId();
-//    }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {

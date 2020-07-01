@@ -9,33 +9,49 @@
     <br>
     <h2>Event details</h2>
     <br>
-
     <div class="jumbotron">
-        <h1><span th:text="${event.title}"></span></h1>
-        <h5><span th:text="${event.startDate+' '+event.city}"></span></h5>
-        <br>
-        <br>
-    <div class="container">
-        <label>Description:</label><br>
-        <h6><span th:text="${event.description}"></span></h6>
-    </div>
-        <br>
-    <div class="container">
-        <label>Start:</label><br>
-        <h6><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></h6>
-    </div>
-        <br>
-    <div class="container">
-        <label>End:</label><br>
-        <h6><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></h6>
-    </div>
-        <br>
-    <div class="container">
-        <label>City:</label><br>
-        <h6><span th:text="${event.city}"></span></h6>
-    </div>
-</div>
-</div>
-<div th:insert="fragments/footer :: footer"></div>
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <h1><span th:text="${event.title}"></span></h1>
+                <h5><span th:text="${event.startDate+' '+event.city}"></span></h5>
+                <br>
+                <br>
+                <div class="container">
+                    <label>Description:</label><br>
+                    <h6><span th:text="${event.description}"></span></h6>
+                </div>
+                <br>
+                <div class="container">
+                    <label>Start:</label><br>
+                    <h6><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></h6>
+                </div>
+                <br>
+                <div class="container">
+                    <label>End:</label><br>
+                    <h6><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></h6>
+                </div>
+                <br>
+                <div class="container">
+                    <label>City:</label><br>
+                    <h6><span th:text="${event.city}"></span></h6>
+                </div>
+                <br>
+                <div class="container">
+                    <label>Publisher:</label><br>
+                    <h6><span th:text="${event.user.firstName+' '+event.user.lastName}"></span></h6>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <div class="form-group">
+                    <input type="hidden" id="id_picture" th:field="${event.picture.id}"/>
+                    <input type="hidden" id="picture" th:field="${event.picture.fileName}"/>
+                    <img th:if="${event.picture.fileName != null}" class="img-thumbnail"
+                         th:src="@{|/files/${event.picture.fileName}|}"/>
+                    <img th:unless="${event.picture.fileName != null}" class="img-thumbnail"
+                         th:src="@{|/files/nopictures.jpg|}"/>
+                </div>
+            </div>
+        </div>
+        <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

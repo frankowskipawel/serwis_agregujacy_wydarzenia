@@ -38,7 +38,6 @@ public class UserController {
             model.addAttribute("error", "Błędy login lub hasło");
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(auth.getName()+"-----------------");
         return "login";
     }
 
@@ -46,7 +45,6 @@ public class UserController {
     public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
 
         User foundUser = userService.findUsersByEmail(user.getEmail());
-        System.out.println(foundUser);
 
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
             return "home";
@@ -65,15 +63,12 @@ public class UserController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") User user, BindingResult result) {
         if (result.hasErrors()) {
-            System.out.println(user);
             return "register";
         } else {
             user.setRoles(new HashSet<>());
             user.setActive(true);
             user.getRoles().add(roleRepository.findByRole("USER"));
-            System.out.println(user);
             userService.createUser(user);
-            System.out.println(user);
             return "redirect:/login";
         }
     }
