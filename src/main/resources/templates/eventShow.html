@@ -46,7 +46,7 @@
                     <input type="hidden" id="id_picture" th:field="${event.picture.id}"/>
                     <input type="hidden" id="picture" th:field="${event.picture.fileName}"/>
                     <img th:if="${event.picture.fileName != null}" class="img-thumbnail"
-                         th:src="@{|/files/${event.picture.fileName}|}"/>
+                         th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
                     <img th:unless="${event.picture.fileName != null}" class="img-thumbnail"
                          th:src="@{|/files/nopictures.jpg|}"/>
                 </div>

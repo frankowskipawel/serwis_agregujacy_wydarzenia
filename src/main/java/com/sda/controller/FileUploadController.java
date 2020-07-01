@@ -2,6 +2,7 @@ package com.sda.controller;
 
 
 import com.sda.model.Event;
+import com.sda.model.Picture;
 import com.sda.service.EventService;
 import com.sda.storage.StorageFileNotFoundException;
 import com.sda.storage.StorageService;
@@ -37,6 +38,7 @@ public class FileUploadController {
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
 
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
