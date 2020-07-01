@@ -43,6 +43,7 @@ public class EventController {
 
     @PostMapping("/event/addEvent")
     public String register(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model) throws ParseException {
+        if (event.getPicture().getFileName().isEmpty()){event.setPicture(pictureService.findByFileName("nopictures.jpg"));}
         event.setTitle(event.getTitle().trim());
         event.setDescription(event.getDescription().trim());
         event.setCity(event.getCity().trim());
