@@ -23,6 +23,7 @@ public class FtpService {
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         int reply;
         ftp.connect(FTP_HOSTNAME);
+        ftp.enterLocalPassiveMode();
         reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
