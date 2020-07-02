@@ -30,8 +30,7 @@ public class FtpService {
         }
         ftp.login(FTP_LOGIN, FTP_PASSWORD);
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
-//        ftp.enterRemotePassiveMode();
-//        ftp.enterLocalPassiveMode();
+        ftp.enterRemotePassiveMode();
     }
 
     public Boolean uploadFileToFTP(File inputFile, Picture picture) throws SQLException, ClassNotFoundException, IOException {
@@ -39,7 +38,7 @@ public class FtpService {
         FileInputStream fis = null;
         client.connect(FTP_HOSTNAME);
         client.login(FTP_LOGIN, FTP_PASSWORD);
-        ftp.enterLocalActiveMode();
+        client.enterRemotePassiveMode();
         client.changeWorkingDirectory("/devices_files");
         client.setFileType(FTP.BINARY_FILE_TYPE);
 
