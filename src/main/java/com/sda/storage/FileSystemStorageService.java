@@ -65,6 +65,7 @@ public class  FileSystemStorageService implements StorageService {
 					FtpService ftpService = null;
 					try {
 						ftpService = new FtpService();
+						System.out.println("Upload start!");
 						ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
 						System.out.println("Upload done!");
 					} catch (Exception e) {
