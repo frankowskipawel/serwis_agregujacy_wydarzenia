@@ -23,7 +23,6 @@ public class FtpService {
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         int reply;
         ftp.connect(FTP_HOSTNAME);
-        ftp.enterRemotePassiveMode();
         reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
@@ -31,7 +30,8 @@ public class FtpService {
         }
         ftp.login(FTP_LOGIN, FTP_PASSWORD);
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
-        ftp.enterLocalPassiveMode();
+        ftp.enterRemotePassiveMode();
+//        ftp.enterLocalPassiveMode();
     }
 
     public Boolean uploadFileToFTP(File inputFile, Picture picture) throws SQLException, ClassNotFoundException, IOException {
