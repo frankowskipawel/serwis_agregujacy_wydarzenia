@@ -30,7 +30,7 @@ public class FtpService {
         }
         ftp.login(FTP_LOGIN, FTP_PASSWORD);
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
-        ftp.enterRemotePassiveMode();
+//        ftp.enterRemotePassiveMode();
 //        ftp.enterLocalPassiveMode();
     }
 
@@ -39,6 +39,7 @@ public class FtpService {
         FileInputStream fis = null;
         client.connect(FTP_HOSTNAME);
         client.login(FTP_LOGIN, FTP_PASSWORD);
+        ftp.enterRemotePassiveMode();
         client.changeWorkingDirectory("/devices_files");
         client.setFileType(FTP.LOCAL_FILE_TYPE);
 
