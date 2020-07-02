@@ -60,14 +60,22 @@ public class  FileSystemStorageService implements StorageService {
 			picture.setFileName(picture.getId()+"_"+picture.getFileName());
 			pictureService.savePicture(picture);
 
-			FtpService ftpService = new FtpService();
-			ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
+			Thread thread = new Thread(){
+				public void run(){
+					FtpService ftpService = null;
+					try {
+						ftpService = new FtpService();
+						ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
+						System.out.println("Upload done!");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			thread.start();
 
 			nameLastFile=picture.getFileName();
-		} catch (SQLException throwables) {
-			throwables.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
