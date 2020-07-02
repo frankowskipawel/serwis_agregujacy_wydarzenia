@@ -41,7 +41,7 @@ public class FtpService {
         client.login(FTP_LOGIN, FTP_PASSWORD);
         ftp.enterRemotePassiveMode();
         client.changeWorkingDirectory("/devices_files");
-        client.setFileType(FTP.LOCAL_FILE_TYPE);
+        client.setFileType(FTP.BINARY_FILE_TYPE);
 
         fis = new FileInputStream(inputFile.getAbsolutePath());
         Boolean result = client.storeFile(picture.getFileName(), fis);
