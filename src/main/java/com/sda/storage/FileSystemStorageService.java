@@ -24,17 +24,17 @@ import java.util.stream.Stream;
 @Service
 public class  FileSystemStorageService implements StorageService {
 
-	private final Path rootLocation;
 
 	@Autowired
 	PictureService pictureService;
+
+	private final Path rootLocation;
+	private String nameLastFile;
 
 	@Autowired
 	public FileSystemStorageService(StorageProperties properties) {
 		this.rootLocation = Paths.get(properties.getLocation());
 	}
-
-	private String nameLastFile;
 
 
 	@Override
