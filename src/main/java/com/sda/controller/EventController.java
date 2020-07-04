@@ -4,9 +4,12 @@ import com.sda.entity.Comment;
 import com.sda.entity.Event;
 import com.sda.entity.User;
 import com.sda.service.CommentsService;
+import com.sda.entity.Event;
+import com.sda.entity.User;
 import com.sda.service.EventService;
 import com.sda.service.PictureService;
 import com.sda.service.UserService;
+import com.sda.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +30,6 @@ import java.util.Date;
 @RequestMapping("/")
 public class EventController {
 
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -38,6 +40,8 @@ public class EventController {
     private CommentsService commentsService;
 
     private Event currentEvent;
+    @Autowired
+    private EmailUtil emailUtill;
 
 
     @GetMapping("/event/addEvent")
@@ -101,6 +105,7 @@ public class EventController {
             User authUser = userService.findUsersByEmail(auth.getName());
             event.setUser(authUser);
             eventService.createEvent(event);
+            emailUtill.sendNotificationNewEvent(event);
             return "redirect:/home";
         }
     }

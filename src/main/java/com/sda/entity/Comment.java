@@ -1,4 +1,4 @@
-package com.sda.entity;
+package com.sda.model;
 
 import lombok.Data;
 
@@ -20,6 +20,7 @@ public class Comment {
     @Size(max = 500, message = "Comments can have up to 500 signs only")
     private String commentary;
     private Date date;
+    private Time time;
     @ManyToOne
     private Event event;
     @ManyToOne
