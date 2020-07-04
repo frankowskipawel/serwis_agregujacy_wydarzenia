@@ -5,13 +5,14 @@ import lombok.Data;
 import javax.persistence.*;
 
 import javax.validation.constraints.Size;
-import java.sql.Date;
+
 import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Data
 @Table(name="comments")
-public class Comments {
+public class Comment {
     @Id
     @GeneratedValue
     @Column(name="comm_id")
