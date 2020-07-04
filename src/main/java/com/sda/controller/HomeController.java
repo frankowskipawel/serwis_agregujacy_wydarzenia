@@ -28,6 +28,11 @@ public class HomeController {
     Environment environment;
 
 
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String home(Model model, @RequestParam("page") Optional<Integer> page) {
         int currentPage = page.orElse(1);

@@ -7,6 +7,7 @@ import com.sda.service.CommentsService;
 import com.sda.service.EventService;
 import com.sda.service.PictureService;
 import com.sda.service.UserService;
+import com.sda.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,9 +36,13 @@ public class EventController {
     @Autowired
     private PictureService pictureService;
     @Autowired
+
     private CommentsService commentsService;
 
     private Event currentEvent;
+
+    private EmailUtil emailUtill;
+
 
 
     @GetMapping("/event/addEvent")
@@ -101,6 +106,7 @@ public class EventController {
             User authUser = userService.findUsersByEmail(auth.getName());
             event.setUser(authUser);
             eventService.createEvent(event);
+            emailUtill.sendNotificationNewEvent(event);
             return "redirect:/home";
         }
     }
