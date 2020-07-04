@@ -31,8 +31,8 @@ public class ApiController {
             eventAPI.setDescription(event.getDescription());
             eventAPI.setCity(event.getCity());
             eventAPI.setId(event.getId());
-            eventAPI.setStartDate(event.getStartDate());
-            eventAPI.setEndDate(event.getEndDate());
+            eventAPI.setStartDate(event.getStartDate().toString());
+            eventAPI.setEndDate(event.getEndDate().toString());
             eventAPI.setPicture(event.getPicture().getFileName());
             eventAPI.setUser(event.getUser().getFirstName()+" "+event.getUser().getLastName());
             eventsAPI.add(eventAPI);
