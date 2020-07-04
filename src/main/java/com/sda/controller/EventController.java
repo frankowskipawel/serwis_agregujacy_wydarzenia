@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.entity.Comment;
 import com.sda.entity.Event;
 import com.sda.entity.User;
 import com.sda.service.CommentsService;
@@ -35,6 +36,8 @@ public class EventController {
     private PictureService pictureService;
     @Autowired
     private CommentsService commentsService;
+
+    private Event currentEvent;
 
 
     @GetMapping("/event/addEvent")
@@ -105,7 +108,22 @@ public class EventController {
     @GetMapping("/eventShow")
     public String showEvent(Model model, @RequestParam("eventId") int eventId) {
         Event event = eventService.findById(eventId).get();
+        currentEvent = event;
         model.addAttribute("event", event);
+        Comment comment = new Comment();
+        model.addAttribute("comment", comment);
         return "eventShow";
     }
+
+    @PostMapping("/addComment")
+    public String addComment(Model model, @ModelAttribute("comment") Comment comment){
+        model.addAttribute("eventId", currentEvent.getId());
+        comment.setEvent(currentEvent);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        comment.setUser(userService.findUsersByEmail(auth.getName()));
+        comment.setDate(new Date());
+        commentsService.save(comment);
+        return "redirect:/eventShow?eventId="+currentEvent.getId();
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.sda.service;
 
-import com.sda.entity.Comments;
+import com.sda.entity.Comment;
 import com.sda.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ public class CommentsService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public List<Comments> getComments(int eventId){
+    public List<Comment> getComments(int eventId){
         return commentRepository.findByEvent_Id(eventId);
     }
 
-    public void comment(Comments comments){
-        commentRepository.save(comments);
+    public void save(Comment comment){
+        commentRepository.save(comment);
     }
 }
