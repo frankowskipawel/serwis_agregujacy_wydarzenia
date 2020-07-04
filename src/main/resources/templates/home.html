@@ -39,33 +39,33 @@
             <td><h5><a th:href="@{/eventShow(eventId=${event.id})}" th:text="${event.title}"></a></h5></td>
             <td><span th:text="${event.city}"></span></td>
             <div th:if="${#strings.length(event.description)>50}">
-            <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>
+                <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>
             </div>
             <div th:if="${#strings.length(event.description)<=50}">
                 <td><span th:text="${event.description}"></span></td>
             </div>
-                        <td>
-                            <div class="btn-group-vertical">
-                                <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-primary btn-sm"
-                                   role="button">Show</a>
-                            </div>
-                        </td>
+            <td>
+                <div class="btn-group-vertical">
+                    <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-primary btn-sm"
+                       role="button">Show</a>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
     <div class="container" align="center">
-    <div class="btn-group" align="center">
-        <!--previous page--><a style="padding: 12px" th:if="${currentPage != null && currentPage!=1}"
-                               th:href="@{|/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
-        <span th:if="${pages.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+        <div class="btn-group" align="center">
+            <!--previous page--><a style="padding: 12px" th:if="${currentPage != null && currentPage!=1}"
+                                   th:href="@{|/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
+            <span th:if="${pages.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
                    <!--current page--><a style="padding: 12px; font-weight:bold" th:if="${currentPage == pageNumber}"
                                          th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}+'  '"></a>
-            <!--other page--><a style="padding: 12px" th:if="${currentPage!=pageNumber}"
-                                th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}"> </a>
+                <!--other page--><a style="padding: 12px" th:if="${currentPage!=pageNumber}"
+                                    th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}"> </a>
                 </span>
-        <!--next page--><a style="padding: 12px" th:if="${currentPage != null &&  currentPage<pages.totalPages}"
-                           th:href="@{|/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
-    </div>
+            <!--next page--><a style="padding: 12px" th:if="${currentPage != null &&  currentPage<pages.totalPages}"
+                               th:href="@{|/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
+        </div>
     </div>
 </div>
 <div th:insert="fragments/footer :: footer"></div>

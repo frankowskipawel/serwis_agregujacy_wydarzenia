@@ -1,6 +1,6 @@
 package com.sda.service;
 
-import com.sda.model.Event;
+import com.sda.entity.Event;
 import com.sda.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

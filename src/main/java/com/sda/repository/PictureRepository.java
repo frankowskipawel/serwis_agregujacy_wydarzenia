@@ -1,6 +1,6 @@
 package com.sda.repository;
 
-import com.sda.model.Picture;
+import com.sda.entity.Picture;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PictureRepository extends JpaRepository<Picture, Integer> {

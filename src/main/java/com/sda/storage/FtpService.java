@@ -1,6 +1,6 @@
 package com.sda.storage;
 
-import com.sda.model.Picture;
+import com.sda.entity.Picture;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;

@@ -1,7 +1,7 @@
 package com.sda.controller;
 
-import com.sda.model.Event;
-import com.sda.model.User;
+import com.sda.entity.Event;
+import com.sda.entity.User;
 import com.sda.service.EventService;
 import com.sda.service.PictureService;
 import com.sda.service.UserService;

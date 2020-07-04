@@ -1,6 +1,6 @@
 package com.sda.controller;
 
-import com.sda.model.User;
+import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import com.sda.service.UserService;
