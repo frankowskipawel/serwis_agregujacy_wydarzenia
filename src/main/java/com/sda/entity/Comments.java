@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import javax.validation.constraints.Size;
 import java.sql.Date;
-import java.sql.Time;
+
 
 @Entity
 @Data
@@ -19,8 +19,9 @@ public class Comments {
     @Size(max = 500)
     private String commentary;
     private Date date;
-    private Time time;
     @ManyToOne
     private Event event;
+    @ManyToOne
+    private User user;
 
 }
