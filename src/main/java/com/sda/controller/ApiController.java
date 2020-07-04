@@ -35,6 +35,7 @@ public class ApiController {
             eventAPI.setEndDate(event.getEndDate());
             eventAPI.setPicture(event.getPicture().getFileName());
             eventAPI.setUser(event.getUser().getFirstName()+" "+event.getUser().getLastName());
+            eventsAPI.add(eventAPI);
         }
 
         return gson.toJson(eventsAPI);
