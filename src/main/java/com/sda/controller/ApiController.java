@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.google.gson.Gson;
 import com.sda.entity.Event;
 import com.sda.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class ApiController {
 
 
     @GetMapping("/events")
-    public List<Event> getEvents(){
-
-        return eventService.findAll();
+    public String getEvents(){
+        Gson gson = new Gson();
+        return gson.toJson(eventService.findAll());
     }
 }
