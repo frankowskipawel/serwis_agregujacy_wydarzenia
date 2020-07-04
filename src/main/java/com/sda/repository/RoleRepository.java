@@ -1,6 +1,6 @@
 package com.sda.repository;
 
-import com.sda.model.Role;
+import com.sda.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

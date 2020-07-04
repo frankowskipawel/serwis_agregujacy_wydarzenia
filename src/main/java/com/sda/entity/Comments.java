@@ -1,4 +1,4 @@
-package com.sda.model;
+package com.sda.entity;
 
 import lombok.Data;
 
@@ -19,7 +19,6 @@ public class Comments {
     @Size(max = 500)
     private String commentary;
     private Date date;
-    private Time time;
     @ManyToOne
     private Event event;
 

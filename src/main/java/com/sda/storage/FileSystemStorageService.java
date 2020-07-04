@@ -1,6 +1,6 @@
 package com.sda.storage;
 
-import com.sda.model.Picture;
+import com.sda.entity.Picture;
 import com.sda.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

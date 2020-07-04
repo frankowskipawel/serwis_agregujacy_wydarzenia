@@ -1,9 +1,8 @@
-package com.sda.model;
+package com.sda.entity;
 
 
 
 import lombok.Data;
-import org.hibernate.annotations.Columns;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

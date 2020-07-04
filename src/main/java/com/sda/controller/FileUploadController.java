@@ -1,8 +1,7 @@
 package com.sda.controller;
 
 
-import com.sda.model.Event;
-import com.sda.model.Picture;
+import com.sda.entity.Event;
 import com.sda.service.EventService;
 import com.sda.storage.StorageFileNotFoundException;
 import com.sda.storage.StorageService;

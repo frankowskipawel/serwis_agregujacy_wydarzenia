@@ -1,6 +1,6 @@
 package com.sda.controller;
 
-import com.sda.model.Event;
+import com.sda.entity.Event;
 import com.sda.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

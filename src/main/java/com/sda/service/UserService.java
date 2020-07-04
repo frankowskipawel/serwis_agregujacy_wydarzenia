@@ -1,7 +1,7 @@
 package com.sda.service;
 
-import com.sda.model.Role;
-import com.sda.model.User;
+import com.sda.entity.Role;
+import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
