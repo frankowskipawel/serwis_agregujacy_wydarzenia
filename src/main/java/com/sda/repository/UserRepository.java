@@ -1,6 +1,6 @@
 package com.sda.repository;
 
-import com.sda.model.User;
+import com.sda.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

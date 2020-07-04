@@ -1,6 +1,6 @@
 package com.sda.controller;
 
-import com.sda.model.Event;
+import com.sda.entity.Event;
 import com.sda.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -27,6 +27,11 @@ public class HomeController {
     @Autowired
     Environment environment;
 
+
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/home";
+    }
 
     @GetMapping("/home")
     public String home(Model model, @RequestParam("page") Optional<Integer> page) {

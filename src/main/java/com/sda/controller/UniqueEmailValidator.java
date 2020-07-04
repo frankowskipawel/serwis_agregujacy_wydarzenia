@@ -1,7 +1,6 @@
 package com.sda.controller;
 
-import com.sda.model.User;
-import com.sda.repository.UserRepository;
+import com.sda.entity.User;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
