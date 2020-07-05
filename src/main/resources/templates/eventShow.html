@@ -29,7 +29,7 @@
                 <br>
                 <div class="container">
                     <label>End:</label><br>
-                    <h6><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></h6>
+                    <h6><span th:text="${#dates.format(event.endDate, 'dd-MM-yyyy - (HH:mm)')}"></span></h6>
                 </div>
                 <br>
                 <div class="container">
@@ -70,11 +70,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="commentary:${comments}" th:object="${comment}">
-                        <td><span th:text="${comment.user}"></span></td>
-                        <td><span th:text="${comment.date}"></span></td>
-                        <td><span th:text="${comment.commentary}">commentary</span></td>
+                    <tr th:each="comment:${commentlist}" th:object="${comment}">
 
+
+                        <td><div class="container-sm"><span th:text="${comment.user.firstName}"></span></div></td>
+                        <td>  <span th:text="${#dates.format(comment.date, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                        <td><div class="container-md"><span th:text="${comment.commentary}"></span></div></td>
                     </tr>
                     </tbody>
                 </table>
@@ -82,7 +83,7 @@
         <div class="row" style="margin-top:20px">
 
             <form th:action="@{/addComment}" th:object="${comment}" method="post">
-            <textarea rows="8" type="text" class="form-control input-lg" placeholder="your commentary"
+            <textarea rows="8" cols="150" type="text" class="form-control input-lg" placeholder="your commentary"
                       required="true" th:field="${comment.commentary}"/>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
