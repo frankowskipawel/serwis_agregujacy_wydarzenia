@@ -19,11 +19,11 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     Page<Event> findAllByTitleContainingAndStartDateAfter(Pageable pageable, String query, Date date); //future
 
     Page<Event> findAllByTitleContainingAndEndDateBefore(Pageable pageable, String query, Date date); //past
-    List<EventAPI> findAllByTitleContainingAndEndDateBefore(String query, Date date); //past
-
     Page<Event> findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(Pageable pageable, String query, Date startDate, Date endDate); //ongoing
 
     default Page<Event> findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(Pageable pageable, String query, Date date) {
         return findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(pageable,query, date, date);
     }
+
+    List<EventAPI> findAllByTitleContainingAndEndDateBefore(String query, Date date); //past
 }

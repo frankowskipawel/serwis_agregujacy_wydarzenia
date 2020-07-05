@@ -1,6 +1,7 @@
 package com.sda.controller;
 
 import com.sda.entity.Event;
+import com.sda.modelAPI.EventAPI;
 import com.sda.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ApiController {
 
 
     @GetMapping("/events")
-    public List<Event> getEvents(){
+    public List<EventAPI> getEvents(){
 
         return eventService.findAllPastEvent("",new Date());
     }
