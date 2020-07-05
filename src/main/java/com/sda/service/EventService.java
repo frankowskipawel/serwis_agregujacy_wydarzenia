@@ -1,15 +1,12 @@
 package com.sda.service;
 
-import com.sda.model.Event;
+import com.sda.entity.Event;
 import com.sda.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +38,6 @@ public class EventService {
         return eventRepository.findAllByTitleContainingAndStartDateAfter(pageable, query, date);
     }
 
-
     public Page<Event> findAllPastEvent(Pageable pageable, String query, Date date) {
         return eventRepository.findAllByTitleContainingAndEndDateBefore(pageable, query, date);
     }
@@ -49,7 +45,6 @@ public class EventService {
     public Page<Event> findAllOngoingEvent(Pageable pageable, String query, Date date) {
         return eventRepository.findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(pageable, query, date);
     }
-
 
     public Optional<Event> findById(int id){
         return eventRepository.findById(id);
