@@ -41,6 +41,7 @@ public class EventController {
 
     private Event currentEvent;
 
+    @Autowired
     private EmailUtil emailUtill;
 
 
