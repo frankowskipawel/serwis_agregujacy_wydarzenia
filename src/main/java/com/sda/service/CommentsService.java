@@ -27,4 +27,8 @@ public class CommentsService {
     public void save(Comment comment){
         commentRepository.save(comment);
     }
+
+    public List<Comment> findBtEventOrderByDate(int eventId){
+        return commentRepository.findByEventIdOrderByDateDesc(eventId);
+    }
 }

@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -14,10 +13,10 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findByEvent_Id(int eventId);
 
-    Page<Comment> findAllByDateAndTimeOrderByDateDesc(Date date, Time time, Pageable pageable);
-
     default Page<Comment> findAllByDateAndTimeOrderByDateDesc(Pageable pageable, String query, Date date) {
         return findAllByDateAndTimeOrderByDateDesc(pageable, query, date);
     }
+
+    List<Comment> findByEventIdOrderByDateDesc(int eventId);
 }
 

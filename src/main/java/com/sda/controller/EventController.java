@@ -119,7 +119,7 @@ public class EventController {
         model.addAttribute("event", event);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
-        model.addAttribute("commentlist", commentsService.getComments(eventId) );
+        model.addAttribute("commentlist", commentsService.findBtEventOrderByDate(eventId) );
         return "eventShow";
     }
 
