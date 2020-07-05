@@ -26,7 +26,7 @@ public class FileUploadController {
     private final StorageService storageService;
 
     @Autowired
-    EventService eventService;
+    private EventService eventService;
 
     @Autowired
     public FileUploadController(StorageService storageService) {

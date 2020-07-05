@@ -22,7 +22,7 @@ public class ApiController {
     private EventService eventService;
 
 
-    @GetMapping("/events")
+    @GetMapping("/events/all")
     public String getEvents() {
         Gson gson = new Gson();
         List<Event> events = eventService.findAll();
