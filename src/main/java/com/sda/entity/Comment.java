@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.sql.Time;
 import java.util.Date;
 
 
