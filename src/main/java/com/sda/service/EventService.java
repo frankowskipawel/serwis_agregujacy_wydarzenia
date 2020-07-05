@@ -42,6 +42,10 @@ public class EventService {
         return eventRepository.findAllByTitleContainingAndEndDateBefore(pageable, query, date);
     }
 
+    public List<Event> findAllPastEvent(String query, Date date) {
+        return eventRepository.findAllByTitleContainingAndEndDateBefore(query, date);
+    }
+
     public Page<Event> findAllOngoingEvent(Pageable pageable, String query, Date date) {
         return eventRepository.findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(pageable, query, date);
     }
@@ -49,4 +53,6 @@ public class EventService {
     public Optional<Event> findById(int id){
         return eventRepository.findById(id);
     }
+
+
 }

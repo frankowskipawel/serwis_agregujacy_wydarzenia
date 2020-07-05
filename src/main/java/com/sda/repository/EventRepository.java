@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
@@ -16,6 +17,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     Page<Event> findAllByTitleContainingAndStartDateAfter(Pageable pageable, String query, Date date); //future
 
     Page<Event> findAllByTitleContainingAndEndDateBefore(Pageable pageable, String query, Date date); //past
+    List<Event> findAllByTitleContainingAndEndDateBefore(String query, Date date); //past
 
     Page<Event> findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(Pageable pageable, String query, Date startDate, Date endDate); //ongoing
 
