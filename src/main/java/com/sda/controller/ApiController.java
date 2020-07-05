@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,6 +21,6 @@ public class ApiController {
     @GetMapping("/events")
     public List<Event> getEvents(){
 
-        return eventService.findAll();
+        return eventService.findAllPastEvent("",new Date());
     }
 }
