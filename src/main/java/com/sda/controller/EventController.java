@@ -1,11 +1,13 @@
 package com.sda.controller;
 
+<<<<<<<<< Temporary merge branch 1
+import com.sda.entity.Event;
+import com.sda.entity.User;
+=========
 import com.sda.entity.Comment;
 import com.sda.entity.Event;
 import com.sda.entity.User;
 import com.sda.service.CommentsService;
-import com.sda.entity.Event;
-import com.sda.entity.User;
 import com.sda.service.EventService;
 import com.sda.service.PictureService;
 import com.sda.service.UserService;
@@ -30,6 +32,7 @@ import java.util.Date;
 @RequestMapping("/")
 public class EventController {
 
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -37,11 +40,13 @@ public class EventController {
     @Autowired
     private PictureService pictureService;
     @Autowired
+
     private CommentsService commentsService;
 
     private Event currentEvent;
-    @Autowired
+
     private EmailUtil emailUtill;
+
 
 
     @GetMapping("/event/addEvent")
