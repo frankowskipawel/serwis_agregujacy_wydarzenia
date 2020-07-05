@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
     List<Comment> findByEvent_Id(int eventId);
+    List<Comment> findAll();
 
     default Page<Comment> findAllByDateAndTimeOrderByDateDesc(Pageable pageable, String query, Date date) {
         return findAllByDateAndTimeOrderByDateDesc(pageable, query, date);
