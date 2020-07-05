@@ -2,7 +2,6 @@ package com.sda.modelAPI;
 
 import lombok.Data;
 
-import java.util.Date;
 
 @Data
 public class EventAPI {

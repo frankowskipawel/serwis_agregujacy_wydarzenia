@@ -25,5 +25,5 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
         return findAllByTitleContainingAndStartDateBeforeAndEndDateAfter(pageable,query, date, date);
     }
 
-    List<EventAPI> findAllByTitleContainingAndEndDateBefore(String query, Date date); //past
+    List<Event> findAllByTitleContainingAndEndDateBefore(String query, Date date); //past
 }
