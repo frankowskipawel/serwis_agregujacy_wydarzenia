@@ -1,12 +1,9 @@
 package com.sda.controller;
 
-<<<<<<<<< Temporary merge branch 1
+
 import com.sda.entity.Event;
 import com.sda.entity.User;
-=========
 import com.sda.entity.Comment;
-import com.sda.entity.Event;
-import com.sda.entity.User;
 import com.sda.service.CommentsService;
 import com.sda.service.EventService;
 import com.sda.service.PictureService;
@@ -44,7 +41,7 @@ public class EventController {
     private CommentsService commentsService;
 
     private Event currentEvent;
-
+    @Autowired
     private EmailUtil emailUtill;
 
 
@@ -122,6 +119,7 @@ public class EventController {
         model.addAttribute("event", event);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
+        model.addAttribute("commentlist", commentsService.getComments(eventId) );
         return "eventShow";
     }
 
