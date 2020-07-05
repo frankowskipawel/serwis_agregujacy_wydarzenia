@@ -25,7 +25,7 @@ public class  FileSystemStorageService implements StorageService {
 
 
 	@Autowired
-	PictureService pictureService;
+	private PictureService pictureService;
 
 	private final Path rootLocation;
 	private String nameLastFile;
