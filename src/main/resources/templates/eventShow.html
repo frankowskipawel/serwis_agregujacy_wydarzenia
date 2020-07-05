@@ -80,17 +80,17 @@
                     </tbody>
                 </table>
 
-        <div class="row" style="margin-top:20px">
+                <div class="row" style="margin-top:20px">
 
-            <form th:action="@{/addComment}" th:object="${comment}" method="post">
+                    <form th:action="@{/addComment}" th:object="${comment}" method="post">
             <textarea rows="8" cols="150" type="text" class="form-control input-lg" placeholder="your commentary"
                       required="true" th:field="${comment.commentary}"/>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
 
-    <div th:insert="fragments/footer :: footer"></div>
+        <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
