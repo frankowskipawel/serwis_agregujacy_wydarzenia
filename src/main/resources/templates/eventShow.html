@@ -56,8 +56,11 @@
                     <img th:unless="${event.picture.fileName != null}" class="img-thumbnail"
                          th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
+                <a th:href="@{/event/signUpEvent(id=${event.id})}" class="btn float-right btn-danger middle btn-lg" role="button">Sign up</a>
+                <span th:if="${isEventSaved == true}" th:text="------------saved--------"></span>
             </div>
         </div>
+
     </div>
     <div class="container">
         <br>

@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -43,7 +44,6 @@ public class EventController {
     private Event currentEvent;
     @Autowired
     private EmailUtil emailUtill;
-
 
 
     @GetMapping("/event/addEvent")
@@ -119,19 +119,42 @@ public class EventController {
         model.addAttribute("event", event);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
-        model.addAttribute("commentlist", commentsService.findBtEventOrderByDate(eventId) );
+        model.addAttribute("commentlist", commentsService.findByEventOrderByDate(eventId));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+        if (user != null && user.getSignUpEvents().contains(event)){
+            model.addAttribute("isEventSaved", true);
+        }
+
         return "eventShow";
     }
 
     @PostMapping("/addComment")
-    public String addComment(Model model, @ModelAttribute("comment") Comment comment){
+    public String addComment(Model model, @ModelAttribute("comment") Comment comment) {
         model.addAttribute("eventId", currentEvent.getId());
         comment.setEvent(currentEvent);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         comment.setUser(userService.findUsersByEmail(auth.getName()));
         comment.setDate(new Date());
         commentsService.save(comment);
-        return "redirect:/eventShow?eventId="+currentEvent.getId();
+        return "redirect:/eventShow?eventId=" + currentEvent.getId();
+    }
+
+    @GetMapping("/event/signUpEvent")
+    public String signUpEvent(Model model, @RequestParam("id") int id) {
+        System.out.println("Sign up for event id " + id);
+        Event event = eventService.findById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+        if (user.getSignUpEvents() == null) {
+            user.setSignUpEvents(new ArrayList<>());
+        }
+        if (!user.getSignUpEvents().contains(event)) {
+            user.getSignUpEvents().add(event);
+            model.addAttribute("eventId", id);
+            userService.save(user);
+        }
+        return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
 
 }
