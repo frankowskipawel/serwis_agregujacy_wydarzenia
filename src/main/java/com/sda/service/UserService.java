@@ -1,7 +1,9 @@
 package com.sda.service;
 
+import com.sda.entity.Event;
 import com.sda.entity.Role;
 import com.sda.entity.User;
+import com.sda.repository.EventRepository;
 import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -29,6 +28,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private EventRepository eventRepository;
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
@@ -40,11 +42,6 @@ public class UserService implements UserDetailsService {
     public User findUsersByEmail(String email) {
         userRepository.findUsersByEmail(email);
         return userRepository.findUsersByEmail(email);
-    }
-
-    public User findUsersById(int id){
-        userRepository.findUsersById(id);
-        return userRepository.findUsersById(id);
     }
 
 
@@ -65,5 +62,16 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+    public User save(User user){
+        return userRepository.save(user);
+    }
+
+    public List<User> findAllBySignUpEventsContains(int event){
+       return  userRepository.findBySignUpEventsContains(event);
+    }
+
+
+
+
 
 }

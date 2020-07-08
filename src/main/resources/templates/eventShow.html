@@ -18,6 +18,11 @@
                 <br>
                 <br>
                 <div class="container">
+
+                    <h6><span th:text="${'id: '+event.id}"></span></h6>
+                </div>
+                <br>
+                <div class="container">
                     <label>Description:</label><br>
                     <h6><span th:text="${event.description}"></span></h6>
                 </div>
@@ -51,14 +56,26 @@
                     <img th:unless="${event.picture.fileName != null}" class="img-thumbnail"
                          th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
-                <div class="row" style="margin-top:20px">
+                <a th:if="${isEventSaved == true}" th:href="@{/event/cancelSavedEvent(id=${event.id})}"
+                   class="btn float-right btn-danger middle btn-lg" role="button">&#x2715;</a>
+                <a th:if="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
+                   class="btn float-right btn-success middle btn-lg disabled" role="button">Saved &#x2713;</a>
+                <a th:unless="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
+                   class="btn float-right btn-success middle btn-lg" role="button">Sign up</a>
 
-                    <form th:action="@{/signupforevent}" th:object="${user}" method="post">
-                        <button type="submit" class="btn btn-primary">Sign up for Event</button>
-                    </form>
+                <div>
+                    <br>
+                    <br>
+                    <h6>Saved users:</h6>
+                <span th:each="user:${savedUsers}" th:object="${user}">
+                    <span th:text="${user.name}+', '"></span>
+                </span>
                 </div>
+                <!--                <span th:if="${isEventSaved == true}" th:text="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;saved&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;"></span>-->
             </div>
+
         </div>
+
     </div>
     <div class="container">
         <br>
@@ -70,33 +87,37 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th> User Name </th>
-                        <th> Date </th>
-                        <th> Comment </th>
+                        <th> User Name</th>
+                        <th> Date</th>
+                        <th> Comment</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="comment:${commentlist}" th:object="${comment}">
 
 
-                        <td><div class="container-sm"><span th:text="${comment.user.firstName}"></span></div></td>
-                        <td>  <span th:text="${#dates.format(comment.date, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
-                        <td><div class="container-md"><span th:text="${comment.commentary}"></span></div></td>
+                        <td>
+                            <div class="container-sm"><span th:text="${comment.user.firstName}"></span></div>
+                        </td>
+                        <td><span th:text="${#dates.format(comment.date, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                        <td>
+                            <div class="container-md"><span th:text="${comment.commentary}"></span></div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
 
-        <div class="row" style="margin-top:20px">
+                <div class="row" style="margin-top:20px">
 
-            <form th:action="@{/addComment}" th:object="${comment}" method="post">
+                    <form th:action="@{/addComment}" th:object="${comment}" method="post">
             <textarea rows="8" cols="150" type="text" class="form-control input-lg" placeholder="your commentary"
                       required="true" th:field="${comment.commentary}"/>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
 
-    <div th:insert="fragments/footer :: footer"></div>
+        <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

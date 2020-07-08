@@ -22,7 +22,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -43,7 +45,6 @@ public class EventController {
     private Event currentEvent;
     @Autowired
     private EmailUtil emailUtill;
-
 
 
     @GetMapping("/event/addEvent")
@@ -119,35 +120,71 @@ public class EventController {
         model.addAttribute("event", event);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
-        model.addAttribute("commentlist", commentsService.findByEventOrderByDate(eventId) );
+        model.addAttribute("commentlist", commentsService.findByEventOrderByDate(eventId));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+        if (user != null && user.getSignUpEvents().contains(event)){
+            model.addAttribute("isEventSaved", true);
+        }
+
+        List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
+        model.addAttribute("savedUsers", savedUsers);
+
         return "eventShow";
     }
 
     @PostMapping("/addComment")
-    public String addComment(Model model, @ModelAttribute("comment") Comment comment){
+    public String addComment(Model model, @ModelAttribute("comment") Comment comment) {
         model.addAttribute("eventId", currentEvent.getId());
         comment.setEvent(currentEvent);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         comment.setUser(userService.findUsersByEmail(auth.getName()));
         comment.setDate(new Date());
         commentsService.save(comment);
-        return "redirect:/eventShow?eventId="+currentEvent.getId();
+
+
+
+        return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
 
-    @PostMapping("/signUpForEvent")
-    public String signUpForEvent(Model model, @ModelAttribute("eventId") int userId){
-        Event event = eventService.findById(userId).get();
-        currentEvent = event;
+    @GetMapping("/event/signUpEvent")
+    public String signUpEvent(Model model, @RequestParam("id") int id) {
+        System.out.println("Sign up for event id " + id);
+
+
+        Event event = eventService.findById(id).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", userService.findUsersById(userId));
-        return "redirect:/home";
+
+
+        User user = userService.findUsersByEmail(auth.getName());
+        if (user.getSignUpEvents() == null) {
+            user.setSignUpEvents(new ArrayList<>());
+        }
+        if (!user.getSignUpEvents().contains(event)) {
+            user.getSignUpEvents().add(event);
+            model.addAttribute("eventId", id);
+            userService.save(user);
+        }
+        return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
 
-    @GetMapping("/signUpForEvent")
-    public String signUpForEventGet(Model model, @RequestParam("eventId") int userId) {
-        User user = userService.findUsersById(userId);
-        model.addAttribute("user", userId);
-        return "redirect:/home";
+
+    @GetMapping("/event/cancelSavedEvent")
+    public String cancelSavedEvent(Model model, @RequestParam("id") int id) {
+        Event event = eventService.findById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+
+        if (user.getSignUpEvents().contains(event)) {
+            user.getSignUpEvents().remove(event);
+            model.addAttribute("eventId", id);
+            userService.save(user);
+        }
+
+        List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
+        model.addAttribute("savedUsers", savedUsers);
+        return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
+
 
 }
