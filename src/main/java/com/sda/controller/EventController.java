@@ -126,6 +126,9 @@ public class EventController {
         if (user != null && user.getSignUpEvents().contains(event)){
             model.addAttribute("isEventSaved", true);
         }
+        if (event.getUser().getEmail().equals(auth.getName())){
+            model.addAttribute("isMyEvent", true);
+        }
 
         List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
         model.addAttribute("savedUsers", savedUsers);

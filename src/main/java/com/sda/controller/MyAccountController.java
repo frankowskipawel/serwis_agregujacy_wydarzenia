@@ -74,12 +74,13 @@ public class MyAccountController {
     }
 
     @PostMapping("/myEvents")
-    public String searchPost(Model model, @RequestParam("when") String when,
+    public String searchPost(Model model,
+                             @RequestParam("when") String when,
                              @RequestParam("role") String role,
                              @RequestParam("startDate") String startDate,
                              @RequestParam("endDate") String endDate,
                              @RequestParam("page") Optional<Integer> page) {
-        System.out.println(startDate + "---" + endDate);
+
         model.addAttribute("selectedMenu", "myEvents");
         model.addAttribute("when", when);
         model.addAttribute("role", role);
@@ -124,7 +125,6 @@ public class MyAccountController {
                     }
                 }
             }
-
         }
 
         Page<Event> eventPage = new PageImpl<>(events);

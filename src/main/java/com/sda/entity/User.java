@@ -40,8 +40,6 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-//    @OneToMany
-//    private List<Event> SignUpEvents;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Event> SignUpEvents;
 }
