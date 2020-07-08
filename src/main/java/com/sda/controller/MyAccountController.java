@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +34,6 @@ public class MyAccountController {
     @Autowired
     private Environment environment;
 
-    private String when;
 
     @GetMapping("/myEvents")
     public String myAccountHome(Model model, @RequestParam("page") Optional<Integer> page) {
@@ -73,40 +73,37 @@ public class MyAccountController {
         return "myAccount/myEvents";
     }
 
-//    @GetMapping("/mySavedEvents")
-//    public String mySavedEvents(Model model, @RequestParam("page") Optional<Integer> page) {
-//        model.addAttribute("selectedMenu", "mySavedEvents");
-//        int currentPage = page.orElse(1);
-//        Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending());
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUsersByEmail(auth.getName());
-//        List<Event> mySavedEvents = user.getSignUpEvents();
-//
-//        Page<Event> eventPage = new PageImpl<>(mySavedEvents);
-//
-//        model.addAttribute("pages", eventPage);
-//        int totalPages = eventPage.getTotalPages();
-//        if (totalPages > 0) {
-//            List<Integer> pageNumbers = new ArrayList<>();
-//            for (int i = 1; i <= totalPages; i++) {
-//                pageNumbers.add(i);
-//            }
-//            model.addAttribute("list", "home");
-//            model.addAttribute("pageNumbers", pageNumbers);
-//            model.addAttribute("currentPage", page.orElse(1));
-//        }
-//        return "myAccount/mySavedEvents";
-//    }
-
-
     @PostMapping("/myEvents")
     public String searchPost(Model model, @RequestParam("when") String when,
                              @RequestParam("role") String role,
+                             @RequestParam("startDate") String startDate,
+                             @RequestParam("endDate") String endDate,
                              @RequestParam("page") Optional<Integer> page) {
-
+        System.out.println(startDate + "---" + endDate);
         model.addAttribute("selectedMenu", "myEvents");
         model.addAttribute("when", when);
         model.addAttribute("role", role);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        Date localStartDate=null;
+        Date localEndDate=null;
+        try {
+            localStartDate = parser.parse("2000-01-01 00:00");
+            localEndDate = parser.parse("2099-12-31 23:59");
+
+            if (!startDate.isEmpty()) {
+                localStartDate = parser.parse(startDate+" 00:00");
+            }
+            if (!endDate.isEmpty()) {
+                localEndDate = parser.parse(endDate+" 23:59");
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         int currentPage = page.orElse(1);
         Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending());
         Page<Event> eventPages = getEvents(pageable, when, "");
@@ -116,14 +113,18 @@ public class MyAccountController {
         List<Event> events = new ArrayList<>();
 
         for (Event event : eventPages) {
-            if (event.getUser().getEmail().equals(auth.getName()) && (role.equals("organizer") || role.equals("all"))) {
-                events.add(event);
-            }
-            if (user.getSignUpEvents().contains(event) && (role.equals("participant") || role.equals("all"))) {
-                if (!events.contains(event)) {
+            if (event.getStartDate().after(localStartDate) && event.getEndDate().before(localEndDate)) {
+
+                if (event.getUser().getEmail().equals(auth.getName()) && (role.equals("organizer") || role.equals("all"))) {
                     events.add(event);
                 }
+                if (user.getSignUpEvents().contains(event) && (role.equals("participant") || role.equals("all"))) {
+                    if (!events.contains(event)) {
+                        events.add(event);
+                    }
+                }
             }
+
         }
 
         Page<Event> eventPage = new PageImpl<>(events);

@@ -7,10 +7,10 @@
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <div th:insert="fragments/menu :: menu"></div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-10">
 
             <br>
             <h2>My events</h2>
@@ -36,6 +36,11 @@
                     <option th:if="${role=='participant'}" th:value="'participant'" th:text="participant" selected></option>
                     <option th:unless="${role=='participant'}" th:value="'participant'" th:text="participant"></option>
                 </select>
+                <br>
+                <div style="margin: 5px"><h7>Start:</h7>   </div>
+                <input style="border-radius:0px" class="form-control mr-sm-2" name="startDate" th:value="${startDate}" type="date" placeholder="start date">
+                <div style="margin: 5px"><h7>End:</h7></div>
+                <input style="border-radius:0px" class="form-control mr-sm-2" name="endDate" th:value="${endDate}" type="date" placeholder="start date">
                 <button style="margin: 5px" class="btn btn-success" type="submit">Search</button>
             </form>
             <table class="table table-hover">
