@@ -24,6 +24,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -126,6 +127,9 @@ public class EventController {
             model.addAttribute("isEventSaved", true);
         }
 
+        List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
+        model.addAttribute("savedUsers", savedUsers);
+
         return "eventShow";
     }
 
@@ -137,14 +141,21 @@ public class EventController {
         comment.setUser(userService.findUsersByEmail(auth.getName()));
         comment.setDate(new Date());
         commentsService.save(comment);
+
+
+
         return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
 
     @GetMapping("/event/signUpEvent")
     public String signUpEvent(Model model, @RequestParam("id") int id) {
         System.out.println("Sign up for event id " + id);
+
+
         Event event = eventService.findById(id).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+
         User user = userService.findUsersByEmail(auth.getName());
         if (user.getSignUpEvents() == null) {
             user.setSignUpEvents(new ArrayList<>());
@@ -156,5 +167,24 @@ public class EventController {
         }
         return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
+
+
+    @GetMapping("/event/cancelSavedEvent")
+    public String cancelSavedEvent(Model model, @RequestParam("id") int id) {
+        Event event = eventService.findById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+
+        if (user.getSignUpEvents().contains(event)) {
+            user.getSignUpEvents().remove(event);
+            model.addAttribute("eventId", id);
+            userService.save(user);
+        }
+
+        List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
+        model.addAttribute("savedUsers", savedUsers);
+        return "redirect:/eventShow?eventId=" + currentEvent.getId();
+    }
+
 
 }

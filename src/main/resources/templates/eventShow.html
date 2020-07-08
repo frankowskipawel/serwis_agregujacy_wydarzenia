@@ -56,9 +56,24 @@
                     <img th:unless="${event.picture.fileName != null}" class="img-thumbnail"
                          th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
-                <a th:href="@{/event/signUpEvent(id=${event.id})}" class="btn float-right btn-danger middle btn-lg" role="button">Sign up</a>
-                <span th:if="${isEventSaved == true}" th:text="------------saved--------"></span>
+                <a th:if="${isEventSaved == true}" th:href="@{/event/cancelSavedEvent(id=${event.id})}"
+                   class="btn float-right btn-danger middle btn-lg" role="button">&#x2715;</a>
+                <a th:if="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
+                   class="btn float-right btn-success middle btn-lg disabled" role="button">Saved &#x2713;</a>
+                <a th:unless="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
+                   class="btn float-right btn-success middle btn-lg" role="button">Sign up</a>
+
+                <div>
+                    <br>
+                    <br>
+                    <h6>Saved users:</h6>
+                <span th:each="user:${savedUsers}" th:object="${user}">
+                    <span th:text="${user.name}+', '"></span>
+                </span>
+                </div>
+                <!--                <span th:if="${isEventSaved == true}" th:text="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;saved&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;"></span>-->
             </div>
+
         </div>
 
     </div>
@@ -72,18 +87,22 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th> User Name </th>
-                        <th> Date </th>
-                        <th> Comment </th>
+                        <th> User Name</th>
+                        <th> Date</th>
+                        <th> Comment</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="comment:${commentlist}" th:object="${comment}">
 
 
-                        <td><div class="container-sm"><span th:text="${comment.user.firstName}"></span></div></td>
-                        <td>  <span th:text="${#dates.format(comment.date, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
-                        <td><div class="container-md"><span th:text="${comment.commentary}"></span></div></td>
+                        <td>
+                            <div class="container-sm"><span th:text="${comment.user.firstName}"></span></div>
+                        </td>
+                        <td><span th:text="${#dates.format(comment.date, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                        <td>
+                            <div class="container-md"><span th:text="${comment.commentary}"></span></div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
