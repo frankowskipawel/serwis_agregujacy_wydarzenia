@@ -14,7 +14,6 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
@@ -38,11 +37,11 @@ public class User {
     @Size(min = 8)
     private String password;
     private boolean active;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 //    @OneToMany
 //    private List<Event> SignUpEvents;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Event> SignUpEvents;
 }

@@ -1,6 +1,7 @@
 package com.sda.repository;
 
 import com.sda.entity.Event;
+import com.sda.entity.User;
 import com.sda.modelAPI.EventAPI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,5 +32,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     List<Event> findByStartDateAfter(Date date); //future api
     List<Event> findAllByStartDateBefore(Date date); //past
     List<Event> findAllByStartDateBeforeAndEndDateAfter(Date startDate, Date endDate); //ongoing
+
+    Page<Event> findAllByUser (Pageable pageable, User user);
 
 }

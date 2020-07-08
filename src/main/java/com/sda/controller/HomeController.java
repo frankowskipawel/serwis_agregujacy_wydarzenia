@@ -35,6 +35,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(Model model, @RequestParam("page") Optional<Integer> page) {
+
         int currentPage = page.orElse(1);
         Pageable pageable = PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage")), Sort.by("startDate").ascending());
         Page<Event> eventPage = eventService.findAllPagination(pageable);

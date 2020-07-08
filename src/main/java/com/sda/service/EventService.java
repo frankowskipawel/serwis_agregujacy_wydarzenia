@@ -1,6 +1,7 @@
 package com.sda.service;
 
 import com.sda.entity.Event;
+import com.sda.entity.User;
 import com.sda.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,10 @@ public class EventService {
 
     public Page<Event> findAllPagination(Pageable pageable) {
         return eventRepository.findAll(pageable);
+    }
+
+    public Page<Event> findByUser(Pageable pageable, User user) {
+        return eventRepository.findAllByUser(pageable, user);
     }
 
     public Page<Event> findAllBySearchQueryPagination(Pageable pageable, String query) {
