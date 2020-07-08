@@ -12,11 +12,32 @@
         </div>
         <div class="col-sm-9">
 
-
             <br>
             <h2>My events</h2>
             <br>
-
+            <form class="form-inline" action="/myAccount/myEvents" method="post">
+                <div style="margin: 5px"><h7>when:</h7>   </div>
+                <select name="when" class="form-control" style="border-radius:0px">
+                    <option th:if="${when=='all'}" th:value="'all'" th:text="all" selected></option>
+                    <option th:unless="${when=='all'}" th:value="'all'" th:text="all"></option>
+                    <option th:if="${when=='past'}" th:value="'past'" th:text="past" selected></option>
+                    <option th:unless="${when=='past'}" th:value="'past'" th:text="past"></option>
+                    <option th:if="${when=='ongoing'}" th:value="'ongoing'" th:text="ongoing" selected></option>
+                    <option th:unless="${when=='ongoing'}" th:value="'ongoing'" th:text="ongoing"></option>
+                    <option th:if="${when=='future'}"  th:value="'future'" th:text="future" selected></option>
+                    <option th:unless="${when=='future'}"  th:value="'future'" th:text="future"></option>
+                </select>
+                <div style="margin: 5px"><h7>role:</h7>   </div>
+                <select name="role" class="form-control" style="border-radius:0px">
+                    <option th:if="${role=='all'}" th:value="'all'" th:text="all" selected></option>
+                    <option th:unless="${role=='all'}" th:value="'all'" th:text="all"></option>
+                    <option th:if="${role=='organizer'}" th:value="'organizer'" th:text="organizer" selected></option>
+                    <option th:unless="${role=='organizer'}" th:value="'organizer'" th:text="organizer"></option>
+                    <option th:if="${role=='participant'}" th:value="'participant'" th:text="participant" selected></option>
+                    <option th:unless="${role=='participant'}" th:value="'participant'" th:text="participant"></option>
+                </select>
+                <button style="margin: 5px" class="btn btn-success" type="submit">Search</button>
+            </form>
             <table class="table table-hover">
                 <thead>
                 <tr>

@@ -70,6 +70,11 @@ public class UserService implements UserDetailsService {
        return  userRepository.findBySignUpEventsContains(event);
     }
 
+    public List<User> findAll(){
+       return userRepository.findAll();
+    }
+
+
 
 
 

@@ -143,7 +143,6 @@ public class EventController {
         commentsService.save(comment);
 
 
-
         return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
 

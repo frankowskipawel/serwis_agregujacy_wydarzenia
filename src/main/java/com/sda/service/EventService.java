@@ -44,7 +44,7 @@ public class EventService {
     }
 
     public Page<Event> findAllPastEvent(Pageable pageable, String query, Date date) {
-        return eventRepository.findAllByTitleContainingAndStartDateBefore(pageable, query, date);
+        return eventRepository.findAllByTitleContainingAndEndDateBefore(pageable, query, date);
     }
 
     public List<Event> findAllPastEventAPI(String query, Date date) {

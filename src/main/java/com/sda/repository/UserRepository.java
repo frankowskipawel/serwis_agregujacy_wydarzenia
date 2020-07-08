@@ -17,5 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "WHERE s.id =:id")
     List<User> findBySignUpEventsContains(int id);
 
+    List<User> findAll();
+
 
 }
