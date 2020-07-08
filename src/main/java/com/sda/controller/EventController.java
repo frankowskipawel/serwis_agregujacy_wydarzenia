@@ -119,7 +119,7 @@ public class EventController {
         model.addAttribute("event", event);
         Comment comment = new Comment();
         model.addAttribute("comment", comment);
-        model.addAttribute("commentlist", commentsService.findBtEventOrderByDate(eventId) );
+        model.addAttribute("commentlist", commentsService.findByEventOrderByDate(eventId) );
         return "eventShow";
     }
 
@@ -132,6 +132,22 @@ public class EventController {
         comment.setDate(new Date());
         commentsService.save(comment);
         return "redirect:/eventShow?eventId="+currentEvent.getId();
+    }
+
+    @PostMapping("/signUpForEvent")
+    public String signUpForEvent(Model model, @ModelAttribute("eventId") int userId){
+        Event event = eventService.findById(userId).get();
+        currentEvent = event;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", userService.findUsersById(userId));
+        return "redirect:/home";
+    }
+
+    @GetMapping("/signUpForEvent")
+    public String signUpForEventGet(Model model, @RequestParam("eventId") int userId) {
+        User user = userService.findUsersById(userId);
+        model.addAttribute("user", userId);
+        return "redirect:/home";
     }
 
 }

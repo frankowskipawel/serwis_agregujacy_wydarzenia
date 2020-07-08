@@ -42,6 +42,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findUsersByEmail(email);
     }
 
+    public User findUsersById(int id){
+        userRepository.findUsersById(id);
+        return userRepository.findUsersById(id);
+    }
+
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();

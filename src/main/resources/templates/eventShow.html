@@ -51,6 +51,12 @@
                     <img th:unless="${event.picture.fileName != null}" class="img-thumbnail"
                          th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
+                <div class="row" style="margin-top:20px">
+
+                    <form th:action="@{/signupforevent}" th:object="${user}" method="post">
+                        <button type="submit" class="btn btn-primary">Sign up for Event</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
