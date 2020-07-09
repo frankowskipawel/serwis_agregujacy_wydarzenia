@@ -74,7 +74,9 @@ public class UserService implements UserDetailsService {
        return userRepository.findAll();
     }
 
-
+    public Optional<User> findById(int id){
+        return userRepository.findById(id);
+    }
 
 
 

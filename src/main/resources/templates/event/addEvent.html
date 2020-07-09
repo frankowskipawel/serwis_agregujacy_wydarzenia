@@ -85,7 +85,7 @@
                         <img th:if="*{picture.fileName != null}" class="img-thumbnail"
                              th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
                         <img th:unless="*{picture.fileName != null}" class="img-thumbnail"
-                             th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
+                             th:src="@{|http://wegiel.home.pl/ourmeetup/nopictures.jpg|}"/>
                     </div>
                 </div>
 

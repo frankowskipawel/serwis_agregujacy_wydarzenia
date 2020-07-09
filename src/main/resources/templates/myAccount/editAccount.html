@@ -11,6 +11,10 @@
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form th:action="@{/myAccount/editAccount}" th:object="${user}" method="post">
                     <fieldset>
+                        <button id="btn-editEmail" th:object="${user}" modelAttribute="user" type="button" data-toggle="modal"
+                                data-target="#passwordModal" class="btn btn-outline-danger float-right"><span
+                                class="glyphicon glyphicon-pencil"></span>&#128273;
+                        </button>
                         <h1>Edit Account</h1>
                         <div th:if="${param.error}">
                             <div class="alert alert-danger">
@@ -43,6 +47,7 @@
         </div>
     </div>
 </div>
+<div th:insert="myAccount/_password :: passwordModal"/>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

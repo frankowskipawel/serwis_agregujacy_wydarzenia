@@ -9,6 +9,7 @@
 <div class="container">
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <h1>Login</h1>
             <form action="/login" method="post" th:object="${user}" class="was-validated">
                 <div class="form-group">
                     <span style="color:red;font-size:12px" th:if="${error}" th:utext="|${error} &lt;br/&gt;|"></span>

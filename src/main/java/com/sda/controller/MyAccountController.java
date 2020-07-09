@@ -190,4 +190,13 @@ public class MyAccountController {
             return "redirect:/myAccount/myEvents";
         }
     }
+
+    @PostMapping("changePassword")
+    public String changePassword(@ModelAttribute("user") User user){
+        User userToSave = userService.findById(user.getId()).get();
+        userToSave.setPassword(user.getPassword());
+        userService.createUser(userToSave);
+
+        return "redirect:/myAccount/editAccount";
+    }
 }
