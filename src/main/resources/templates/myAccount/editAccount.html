@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+    <div class="container">
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form th:action="@{/myAccount/editAccount}" th:object="${user}" method="post">
+                    <fieldset>
+                        <h1>Edit Account</h1>
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Server error
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="Name" required="true" th:field="*{name}"/>
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"> Name Error</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="Email" required="true" th:field="*{email}" disabled/>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"> Email Error</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="First Name" required="true" th:field="*{firstName}"/>
+                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"> First Name error</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control input-lg" placeholder="Last Name" required="true" th:field="*{lastName}"/>
+                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"> Last Name error</span>
+                        </div>
+
+                        <div class="form-group" >
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Save"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

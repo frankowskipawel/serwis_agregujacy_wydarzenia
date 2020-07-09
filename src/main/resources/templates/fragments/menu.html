@@ -11,9 +11,9 @@
             <a th:unless="${selectedMenu=='myEvents'}" class="nav-link btn btn-outline-dark" href="/myAccount/myEvents">My Events</a>
         </li>
         <li class="nav-item">
-            <a th:if="${selectedMenu=='myAccount'}"  class="nav-link btn btn-dark"
-               href="/myAccount/myAccount">My Account</a>
-            <a th:unless="${selectedMenu=='myAccount'}" class="nav-link btn btn-outline-dark" href="/myAccount/myAccount">My Account</a>
+            <a th:if="${selectedMenu=='editAccount'}"  class="nav-link btn btn-dark"
+               href="/myAccount/editAccount">My Account</a>
+            <a th:unless="${selectedMenu=='editAccount'}" class="nav-link btn btn-outline-dark" href="/myAccount/editAccount">Settings</a>
         </li>
     </ul>
 </menu>

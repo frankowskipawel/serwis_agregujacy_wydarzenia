@@ -2,6 +2,7 @@ package com.sda.controller;
 
 import com.sda.entity.Event;
 import com.sda.entity.User;
+import com.sda.repository.RoleRepository;
 import com.sda.service.EventService;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/myAccount")
@@ -33,6 +30,8 @@ public class MyAccountController {
     private EventService eventService;
     @Autowired
     private Environment environment;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @GetMapping("/myEvents")
@@ -88,17 +87,17 @@ public class MyAccountController {
         model.addAttribute("endDate", endDate);
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        Date localStartDate=null;
-        Date localEndDate=null;
+        Date localStartDate = null;
+        Date localEndDate = null;
         try {
             localStartDate = parser.parse("2000-01-01 00:00");
             localEndDate = parser.parse("2099-12-31 23:59");
 
             if (!startDate.isEmpty()) {
-                localStartDate = parser.parse(startDate+" 00:00");
+                localStartDate = parser.parse(startDate + " 00:00");
             }
             if (!endDate.isEmpty()) {
-                localEndDate = parser.parse(endDate+" 23:59");
+                localEndDate = parser.parse(endDate + " 23:59");
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -164,5 +163,31 @@ public class MyAccountController {
                 eventPage = eventService.findAllBySearchQueryPagination(pageable, query);
         }
         return eventPage;
+    }
+
+    @GetMapping("/editAccount")
+    public String editAccount(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+        model.addAttribute("user", user);
+
+        return "myAccount/editAccount";
+    }
+
+    @PostMapping("/editAccount")
+    public String editAccountPost(@Valid @ModelAttribute("user") User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "myAccount/editAccount";
+        } else {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User userToSave = userService.findUsersByEmail(auth.getName());
+            userToSave.setFirstName(user.getFirstName());
+            userToSave.setLastName(user.getLastName());
+            userToSave.setName(user.getName());
+
+
+            userService.save(userToSave);
+            return "redirect:/myAccount/myEvents";
+        }
     }
 }

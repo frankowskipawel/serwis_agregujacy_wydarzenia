@@ -11,7 +11,9 @@
     <h2>Event details</h2>
     <br>
     <div class="jumbotron">
+
         <div class="row" style="margin-top:20px">
+
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <h1><span th:text="${event.title}"></span></h1>
                 <h5><span th:text="${#strings.substring(event.startDate,0,16)+' in '+event.city}"></span></h5>
@@ -48,6 +50,11 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <a   th:if="${isMyEvent == true}" th:href="@{/event/editEvent(id=${event.id})}"
+                    class="btn float-right btn-light middle btn-sm" role="button">&#9998;</a>
+                <a  th:if="${isMyEvent == true}" th:href="@{/event/deleteEvent(id=${event.id})}"
+                    class="btn float-right btn-light middle btn-sm" role="button">&#128465;</a>
+
                 <div class="form-group">
                     <input type="hidden" id="id_picture" th:field="${event.picture.id}"/>
                     <input type="hidden" id="picture" th:field="${event.picture.fileName}"/>
@@ -57,10 +64,7 @@
                          th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
 
-                <a  th:if="${isMyEvent == true}" th:href="@{/event/editEvent(id=${event.id})}"
-                   class="btn float-right btn-light middle btn-lg" role="button">&#9998;</a>
-                <a  th:if="${isMyEvent == true}" th:href="@{/event/deleteEvent(id=${event.id})}"
-                    class="btn float-right btn-light middle btn-lg" role="button">&#128465;</a>
+
 
                 <a th:if="${isEventSaved == true}" th:href="@{/event/cancelSavedEvent(id=${event.id})}"
                    class="btn float-right btn-danger middle btn-lg" role="button">&#x2715;</a>

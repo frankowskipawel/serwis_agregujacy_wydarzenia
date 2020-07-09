@@ -67,13 +67,15 @@ public class UserController {
         } else {
             user.setRoles(new HashSet<>());
             user.setActive(true);
-            user.getRoles().add(roleRepository.findByRole("USER"));
+            if (userRepository.findAll().isEmpty()) {
+                user.getRoles().add(roleRepository.findByRole("ADMIN"));
+            } else {
+                user.getRoles().add(roleRepository.findByRole("USER"));
+            }
             userService.createUser(user);
             return "redirect:/login";
         }
     }
-
-
 
 
 }

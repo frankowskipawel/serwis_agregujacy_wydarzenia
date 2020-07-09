@@ -5,6 +5,7 @@ import com.sda.entity.Event;
 import com.sda.entity.Picture;
 import com.sda.entity.User;
 import com.sda.entity.Comment;
+import com.sda.repository.RoleRepository;
 import com.sda.service.CommentsService;
 import com.sda.service.EventService;
 import com.sda.service.PictureService;
@@ -46,6 +47,8 @@ public class EventController {
     private static Event currentEvent;
     @Autowired
     private EmailUtil emailUtill;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @GetMapping("/event/addEvent")
@@ -133,9 +136,11 @@ public class EventController {
         if (user != null && user.getSignUpEvents().contains(event)) {
             model.addAttribute("isEventSaved", true);
         }
-        if (event.getUser().getEmail().equals(auth.getName())) {
+        if (event.getUser().getEmail().equals(auth.getName()) || (user!= null && user.getRoles().contains(roleRepository.findByRole("ADMIN")))) {
             model.addAttribute("isMyEvent", true);
         }
+
+
 
         List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
         model.addAttribute("savedUsers", savedUsers);
@@ -220,7 +225,8 @@ public class EventController {
     public String deleteEvent(@RequestParam("id") int id, Model model) {
         Event event = eventService.findById(id).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (event.getUser().getEmail().equals(auth.getName())) {
+        User user = userService.findUsersByEmail(auth.getName());
+        if (event.getUser().getEmail().equals(auth.getName()) || user.getRoles().contains(roleRepository.findByRole("ADMIN"))) {
             eventService.deleteEvent(event);
         }
         return "redirect:/home";
