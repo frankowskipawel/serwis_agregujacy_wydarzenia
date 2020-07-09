@@ -2,6 +2,7 @@ package com.sda.controller;
 
 
 import com.sda.entity.Event;
+import com.sda.entity.Picture;
 import com.sda.entity.User;
 import com.sda.entity.Comment;
 import com.sda.service.CommentsService;
@@ -42,7 +43,7 @@ public class EventController {
 
     private CommentsService commentsService;
 
-    private Event currentEvent;
+    private static Event currentEvent;
     @Autowired
     private EmailUtil emailUtill;
 
@@ -52,14 +53,19 @@ public class EventController {
         Event event = new Event();
         event.setPicture(pictureService.findByFileName(photoFileName));
         model.addAttribute("event", event);
+        currentEvent=null;
         return "event/addEvent";
     }
 
     @PostMapping("/event/addEvent")
     public String register(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model) throws ParseException {
+        currentEvent=null;
         if (event.getPicture().getFileName().isEmpty()) {
             event.setPicture(pictureService.findByFileName("nopictures.jpg"));
         }
+        Picture picture = pictureService.findByFileName(event.getPicture().getFileName());
+        pictureService.savePicture(picture);
+        event.setPicture(picture);
         event.setTitle(event.getTitle().trim());
         event.setDescription(event.getDescription().trim());
         event.setCity(event.getCity().trim());
@@ -109,7 +115,8 @@ public class EventController {
             event.setUser(authUser);
             eventService.createEvent(event);
             emailUtill.sendNotificationNewEvent(event);
-            return "redirect:/home";
+
+            return "redirect:/eventShow?eventId="+event.getId();
         }
     }
 
@@ -123,10 +130,10 @@ public class EventController {
         model.addAttribute("commentlist", commentsService.findByEventOrderByDate(eventId));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUsersByEmail(auth.getName());
-        if (user != null && user.getSignUpEvents().contains(event)){
+        if (user != null && user.getSignUpEvents().contains(event)) {
             model.addAttribute("isEventSaved", true);
         }
-        if (event.getUser().getEmail().equals(auth.getName())){
+        if (event.getUser().getEmail().equals(auth.getName())) {
             model.addAttribute("isMyEvent", true);
         }
 
@@ -189,4 +196,21 @@ public class EventController {
     }
 
 
+    @GetMapping("/event/editEvent")
+    public String editEvent(@RequestParam("id") int id, Model model
+            , @RequestParam(value = "picture", required = false) String photoFileName) {
+        Event event = eventService.findById(id).get();
+        if (photoFileName!=null){event.getPicture().setFileName(photoFileName);}
+        event.setStartDateString(event.getStartDate().toString().substring(0, 10));
+        event.setEndDateString(event.getEndDate().toString().substring(0, 10));
+        event.setStartTimeString(event.getStartDate().toString().substring(11, 16));
+        event.setEndTimeString(event.getEndDate().toString().substring(11, 16));
+        model.addAttribute("event", event);
+        currentEvent = event;
+        return "event/editEvent";
+    }
+
+    public static Event getCurrentEvent() {
+        return currentEvent;
+    }
 }

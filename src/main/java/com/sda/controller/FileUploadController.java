@@ -1,6 +1,7 @@
 package com.sda.controller;
 
 
+import com.sda.entity.Comment;
 import com.sda.entity.Event;
 import com.sda.service.EventService;
 import com.sda.storage.StorageFileNotFoundException;
@@ -49,7 +50,9 @@ public class FileUploadController {
                                    @RequestParam(value = "event", required = false) Event event,
                                    RedirectAttributes redirectAttributes) throws IOException {
 
-        if (file.isEmpty()){return "redirect:/event/addEvent";}
+        if (file.isEmpty()) {
+            return "redirect:/event/addEvent";
+        }
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
@@ -58,8 +61,13 @@ public class FileUploadController {
                 path -> MvcUriComponentsBuilder.fromMethodName(com.sda.controller.FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
-
-        return "redirect:/event/addEvent?picture=" + storageService.getNameLastStorageFile();
+        if (EventController.getCurrentEvent()==null) {
+            return "redirect:/event/addEvent?picture=" + storageService.getNameLastStorageFile();
+        } else {
+            model.addAttribute("id",EventController.getCurrentEvent().getId());
+            return "redirect:/event/editEvent?picture=" + storageService.getNameLastStorageFile()+
+                    "&id="+EventController.getCurrentEvent().getId();
+        }
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

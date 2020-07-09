@@ -14,7 +14,7 @@
         <div class="row" style="margin-top:20px">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <h1><span th:text="${event.title}"></span></h1>
-                <h5><span th:text="${event.startDate+' '+event.city}"></span></h5>
+                <h5><span th:text="${#strings.substring(event.startDate,0,16)+' in '+event.city}"></span></h5>
                 <br>
                 <br>
                 <div class="container">
@@ -122,7 +122,8 @@
                 </div>
             </div>
         </div>
-
+    </div>
+</div>
         <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
