@@ -53,13 +53,13 @@ public class EventController {
         Event event = new Event();
         event.setPicture(pictureService.findByFileName(photoFileName));
         model.addAttribute("event", event);
-        currentEvent=null;
+        currentEvent = null;
         return "event/addEvent";
     }
 
     @PostMapping("/event/addEvent")
     public String register(@Valid @ModelAttribute("event") Event event, BindingResult result, Model model) throws ParseException {
-        currentEvent=null;
+        currentEvent = null;
         if (event.getPicture().getFileName().isEmpty()) {
             event.setPicture(pictureService.findByFileName("nopictures.jpg"));
         }
@@ -116,7 +116,7 @@ public class EventController {
             eventService.createEvent(event);
             emailUtill.sendNotificationNewEvent(event);
 
-            return "redirect:/eventShow?eventId="+event.getId();
+            return "redirect:/eventShow?eventId=" + event.getId();
         }
     }
 
@@ -200,7 +200,9 @@ public class EventController {
     public String editEvent(@RequestParam("id") int id, Model model
             , @RequestParam(value = "picture", required = false) String photoFileName) {
         Event event = eventService.findById(id).get();
-        if (photoFileName!=null){event.getPicture().setFileName(photoFileName);}
+        if (photoFileName != null) {
+            event.getPicture().setFileName(photoFileName);
+        }
         event.setStartDateString(event.getStartDate().toString().substring(0, 10));
         event.setEndDateString(event.getEndDate().toString().substring(0, 10));
         event.setStartTimeString(event.getStartDate().toString().substring(11, 16));
@@ -212,5 +214,15 @@ public class EventController {
 
     public static Event getCurrentEvent() {
         return currentEvent;
+    }
+
+    @GetMapping("/event/deleteEvent")
+    public String deleteEvent(@RequestParam("id") int id, Model model) {
+        Event event = eventService.findById(id).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (event.getUser().getEmail().equals(auth.getName())) {
+            eventService.deleteEvent(event);
+        }
+        return "redirect:/home";
     }
 }
