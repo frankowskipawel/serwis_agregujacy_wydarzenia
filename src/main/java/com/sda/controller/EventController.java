@@ -65,7 +65,7 @@ public class EventController {
         event.setCity(event.getCity().trim());
         if (event.getTitle().isEmpty()) {
             model.addAttribute("alertTitle", "The field cannot contain any spaces.");
-        }
+        } //
         if (event.getDescription().isEmpty()) {
             model.addAttribute("alertDescription", "The field cannot contain any spaces.");
         }
