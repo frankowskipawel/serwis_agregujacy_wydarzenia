@@ -7,6 +7,8 @@ import com.sda.repository.EventRepository;
 import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.*;
 
@@ -78,8 +81,13 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
+    public Page<User> findAllByRoles(Pageable pageable, Role role){
+       return  userRepository.findAllByRoles(pageable,role);
+    }
 
-
+    public List<User> findAllByRoles(Role role){
+        return  userRepository.findAllByRoles(role);
+    }
 
 
 

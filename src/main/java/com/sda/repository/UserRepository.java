@@ -1,6 +1,9 @@
 package com.sda.repository;
 
+import com.sda.entity.Role;
 import com.sda.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,6 +21,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findBySignUpEventsContains(int id);
 
     List<User> findAll();
+
+    Page<User> findAllByRoles(Pageable pageable, Role rol);
+
+    List<User> findAllByRoles(Role role);
 
 
 }
