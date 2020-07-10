@@ -1,0 +1,19 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<menu th:fragment="menu">
+    <br>
+    <br>
+    <br>
+    <h3>Menu</h3>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='myEvents'}" class="nav-link btn btn-dark"
+               href="/myAccount/myEvents">My Events</a>
+            <a th:unless="${selectedMenu=='myEvents'}" class="nav-link btn btn-outline-dark" href="/myAccount/myEvents">My Events</a>
+        </li>
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='editAccount'}"  class="nav-link btn btn-dark"
+               href="/myAccount/editAccount">My Account</a>
+            <a th:unless="${selectedMenu=='editAccount'}" class="nav-link btn btn-outline-dark" href="/myAccount/editAccount">Settings</a>
+        </li>
+    </ul>
+</menu>

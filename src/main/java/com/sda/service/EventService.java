@@ -1,6 +1,7 @@
 package com.sda.service;
 
 import com.sda.entity.Event;
+import com.sda.entity.User;
 import com.sda.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,7 @@ public class EventService {
     }
 
     public Page<Event> findAllPastEvent(Pageable pageable, String query, Date date) {
-        return eventRepository.findAllByTitleContainingAndStartDateBefore(pageable, query, date);
+        return eventRepository.findAllByTitleContainingAndEndDateBefore(pageable, query, date);
     }
 
     public List<Event> findAllPastEventAPI(String query, Date date) {
@@ -63,7 +64,6 @@ public class EventService {
 
         return eventRepository.findAllByStartDateBefore(date);
     }
-
 
     public List<Event> findOngoingEvents(Date date){
 

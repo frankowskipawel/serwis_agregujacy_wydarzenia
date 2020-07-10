@@ -1,4 +1,4 @@
-package com.sda.controller;
+package com.sda.validators;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

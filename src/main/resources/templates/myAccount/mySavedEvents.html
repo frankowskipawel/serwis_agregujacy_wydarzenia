@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div th:insert="fragments/menu :: menu"></div>
+        </div>
+        <div class="col-sm-9">
+            <br>
+            <h2>My saved events</h2>
+            <br>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event:${pages}" th:object="${event}">
+
+                    <td><img style="width:50px;" th:if="${event.picture != null}" class="img-thumbnail well"
+                             th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
+                    </td>
+
+                    <td><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                    <td><span th:text="${#dates.format(event.endDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                    <td><h5><a th:href="@{/eventShow(eventId=${event.id})}" th:text="${event.title}"></a></h5></td>
+                    <td><span th:text="${event.city}"></span></td>
+                    <div th:if="${#strings.length(event.description)>50}">
+                        <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>
+                    </div>
+                    <div th:if="${#strings.length(event.description)<=50}">
+                        <td><span th:text="${event.description}"></span></td>
+                    </div>
+                    <td>
+                        <div class="btn-group-vertical">
+                            <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-primary btn-sm"
+                               role="button">Show</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="container" align="center">
+                <div class="btn-group" align="center">
+                    <!--previous page--><a style="padding: 12px" th:if="${currentPage != null && currentPage!=1}"
+                                           th:href="@{|/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
+                    <span th:if="${pages.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+                   <!--current page--><a style="padding: 12px; font-weight:bold" th:if="${currentPage == pageNumber}"
+                                         th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}+'  '"></a>
+                        <!--other page--><a style="padding: 12px" th:if="${currentPage!=pageNumber}"
+                                            th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}"> </a>
+                </span>
+                    <!--next page--><a style="padding: 12px"
+                                       th:if="${currentPage != null &&  currentPage<pages.totalPages}"
+                                       th:href="@{|/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

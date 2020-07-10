@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <div th:insert="fragments/menu :: menu"></div>
+        </div>
+        <div class="col-sm-10">
+
+            <br>
+            <h2>My events</h2>
+            <br>
+            <form class="form-inline" action="/myAccount/myEvents" method="post">
+                <div style="margin: 5px"><h7>when:</h7>   </div>
+                <select name="when" class="form-control" style="border-radius:0px">
+                    <option th:if="${when=='all'}" th:value="'all'" th:text="all" selected></option>
+                    <option th:unless="${when=='all'}" th:value="'all'" th:text="all"></option>
+                    <option th:if="${when=='past'}" th:value="'past'" th:text="past" selected></option>
+                    <option th:unless="${when=='past'}" th:value="'past'" th:text="past"></option>
+                    <option th:if="${when=='ongoing'}" th:value="'ongoing'" th:text="ongoing" selected></option>
+                    <option th:unless="${when=='ongoing'}" th:value="'ongoing'" th:text="ongoing"></option>
+                    <option th:if="${when=='future'}"  th:value="'future'" th:text="future" selected></option>
+                    <option th:unless="${when=='future'}"  th:value="'future'" th:text="future"></option>
+                </select>
+                <div style="margin: 5px"><h7>role:</h7>   </div>
+                <select name="role" class="form-control" style="border-radius:0px">
+                    <option th:if="${role=='all'}" th:value="'all'" th:text="all" selected></option>
+                    <option th:unless="${role=='all'}" th:value="'all'" th:text="all"></option>
+                    <option th:if="${role=='organizer'}" th:value="'organizer'" th:text="organizer" selected></option>
+                    <option th:unless="${role=='organizer'}" th:value="'organizer'" th:text="organizer"></option>
+                    <option th:if="${role=='participant'}" th:value="'participant'" th:text="participant" selected></option>
+                    <option th:unless="${role=='participant'}" th:value="'participant'" th:text="participant"></option>
+                </select>
+                <br>
+                <div style="margin: 5px"><h7>Start:</h7>   </div>
+                <input style="border-radius:0px" class="form-control mr-sm-2" name="startDate" th:value="${startDate}" type="date" placeholder="start date">
+                <div style="margin: 5px"><h7>End:</h7></div>
+                <input style="border-radius:0px" class="form-control mr-sm-2" name="endDate" th:value="${endDate}" type="date" placeholder="start date">
+                <button style="margin: 5px" class="btn btn-success" type="submit">Search</button>
+            </form>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="event:${pages}" th:object="${event}">
+                    <td><img style="width:130px;" th:if="${event.picture != null}" class="img-thumbnail well"
+                             th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
+                    </td>
+                    <td><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                    <td><span th:text="${#dates.format(event.endDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
+                    <td><h5><a style="color: #4c0015" th:href="@{/eventShow(eventId=${event.id})}" th:text="${event.title}"></a></h5></td>
+                    <td><span th:text="${event.city}"></span></td>
+                    <div th:if="${#strings.length(event.description)>50}">
+                        <td><span th:text=" ${#strings.substring(event.description,0,50)+'...'}  "></span></td>
+                    </div>
+                    <div th:if="${#strings.length(event.description)<=50}">
+                        <td><span th:text="${event.description}"></span></td>
+                    </div>
+                    <td>
+                        <div class="btn-group-vertical">
+                            <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-sm btn-outline-danger"
+                               role="button">Show</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="container" align="center">
+                <div class="btn-group" align="center">
+                    <!--previous page--><a style="padding: 12px" th:if="${currentPage != null && currentPage!=1}"
+                                           th:href="@{|/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
+                    <span th:if="${pages.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
+                   <!--current page--><a style="padding: 12px; font-weight:bold" th:if="${currentPage == pageNumber}"
+                                         th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}+'  '"></a>
+                        <!--other page--><a style="padding: 12px" th:if="${currentPage!=pageNumber}"
+                                            th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}"> </a>
+                </span>
+                    <!--next page--><a style="padding: 12px"
+                                       th:if="${currentPage != null &&  currentPage<pages.totalPages}"
+                                       th:href="@{|/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

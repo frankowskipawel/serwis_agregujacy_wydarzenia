@@ -1,0 +1,15 @@
+body {
+    background-color: #fffbff;
+}
+
+div {
+    color: black;
+    border-radius: 4px;
+    background: #fffbff;
+}
+
+div.jumbotron{
+    border-radius: 4px;
+    background: #fffbff;
+}
+
