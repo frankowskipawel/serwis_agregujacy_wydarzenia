@@ -25,7 +25,7 @@ public class HomeController {
     @Autowired
     private EventService eventService;
     @Autowired
-    Environment environment;
+    private Environment environment;
 
 
     @GetMapping("/")

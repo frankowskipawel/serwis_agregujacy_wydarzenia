@@ -30,8 +30,6 @@ public class MyAccountController {
     private EventService eventService;
     @Autowired
     private Environment environment;
-    @Autowired
-    private RoleRepository roleRepository;
 
 
     @GetMapping("/myEvents")

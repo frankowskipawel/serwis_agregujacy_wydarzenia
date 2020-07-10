@@ -28,12 +28,6 @@ public class UserService implements UserDetailsService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private EventRepository eventRepository;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
@@ -88,7 +82,4 @@ public class UserService implements UserDetailsService {
     public List<User> findAllByRoles(Role role){
         return  userRepository.findAllByRoles(role);
     }
-
-
-
 }

@@ -65,8 +65,6 @@ public class  FileSystemStorageService implements StorageService {
 			ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
 			System.out.println("Upload done!");
 
-
-
 			nameLastFile=picture.getFileName();
 
 		} catch (Exception e) {
@@ -88,7 +86,6 @@ public class  FileSystemStorageService implements StorageService {
 		catch (IOException e) {
 			throw new StorageException("Failed to read stored files", e);
 		}
-
 	}
 
 	@Override
@@ -108,7 +105,6 @@ public class  FileSystemStorageService implements StorageService {
 			else {
 				throw new StorageFileNotFoundException(
 						"Could not read file: " + filename);
-
 			}
 		}
 		catch (MalformedURLException e) {

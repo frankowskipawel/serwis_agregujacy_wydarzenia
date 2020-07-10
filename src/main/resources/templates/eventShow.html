@@ -72,7 +72,6 @@
                    class="btn float-right btn-success middle btn-lg disabled" role="button">Saved &#x2713;</a>
                 <a th:unless="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
                    class="btn float-right btn-success middle btn-lg" role="button">Sign up</a>
-
                 <div>
                     <br>
                     <br>
@@ -81,11 +80,8 @@
                     <span th:text="${user.name}+', '"></span>
                 </span>
                 </div>
-                <!--                <span th:if="${isEventSaved == true}" th:text="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;saved&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;"></span>-->
             </div>
-
         </div>
-
 
     </div>
 
@@ -105,8 +101,6 @@
                     </thead>
                     <tbody>
                     <tr th:each="comment:${commentlist}" th:object="${comment}">
-
-
                         <td>
                             <div class="container-sm"><span th:text="${comment.user.firstName}"></span></div>
                         </td>
@@ -127,7 +121,6 @@
                     </form>
                 </div>
             </div>
-
     </div>
 </div>
         <div th:insert="fragments/footer :: footer"></div>

@@ -1,6 +1,6 @@
 package com.sda.entity;
 
-import com.sda.controller.UniqueEmail;
+import com.sda.validators.UniqueEmail;
 import lombok.*;
 
 import javax.persistence.*;

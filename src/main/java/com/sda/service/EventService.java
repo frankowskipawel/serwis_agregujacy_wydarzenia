@@ -31,10 +31,6 @@ public class EventService {
         return eventRepository.findAll(pageable);
     }
 
-    public Page<Event> findByUser(Pageable pageable, User user) {
-        return eventRepository.findAllByUser(pageable, user);
-    }
-
     public Page<Event> findAllBySearchQueryPagination(Pageable pageable, String query) {
         return eventRepository.findAllByTitleContaining(pageable, query);
     }
@@ -68,7 +64,6 @@ public class EventService {
 
         return eventRepository.findAllByStartDateBefore(date);
     }
-
 
     public List<Event> findOngoingEvents(Date date){
 

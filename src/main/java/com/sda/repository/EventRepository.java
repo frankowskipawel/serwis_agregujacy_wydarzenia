@@ -2,7 +2,6 @@ package com.sda.repository;
 
 import com.sda.entity.Event;
 import com.sda.entity.User;
-import com.sda.modelAPI.EventAPI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -43,9 +43,6 @@
         </thead>
         <tbody>
         <tr th:each="event:${pages}" th:object="${event}">
-<!--            <td><img style="width:50px;" th:if="${event.picture != null}" class="img-thumbnail well"-->
-<!--                     th:src="@{|/files/${event.picture.fileName}|}"/>-->
-<!--            </td>-->
             <td><img style="width:50px;" th:if="${event.picture != null}" class="img-thumbnail well"
                      th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
             </td>

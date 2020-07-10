@@ -140,8 +140,6 @@ public class EventController {
             model.addAttribute("isMyEvent", true);
         }
 
-
-
         List<User> savedUsers = userService.findAllBySignUpEventsContains(event.getId());
         model.addAttribute("savedUsers", savedUsers);
 
@@ -157,18 +155,13 @@ public class EventController {
         comment.setDate(new Date());
         commentsService.save(comment);
 
-
         return "redirect:/eventShow?eventId=" + currentEvent.getId();
     }
 
     @GetMapping("/event/signUpEvent")
     public String signUpEvent(Model model, @RequestParam("id") int id) {
-        System.out.println("Sign up for event id " + id);
-
-
         Event event = eventService.findById(id).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
 
         User user = userService.findUsersByEmail(auth.getName());
         if (user.getSignUpEvents() == null) {
