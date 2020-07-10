@@ -6,13 +6,13 @@
 </head>
 <body>
 <div th:insert="fragments/navbar :: navbar"></div>
-<div class="container">
+<div class="container" style="padding: 20px">
     <br>
     <h2>Event details</h2>
     <br>
     <div class="jumbotron">
 
-        <div class="row" style="margin-top:20px">
+        <div class="row" style="padding: 20px">
 
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <h1><span th:text="${event.title}"></span></h1>
@@ -88,11 +88,11 @@
 
 
     </div>
-    <div class="container">
+
         <br>
         <h1>Comments</h1>
         <br>
-        <div class="jumbotron">
+        <div class="jumbotron" style="margin-bottom: 20px">
 
             <div class="container">
                 <table class="table">
@@ -127,7 +127,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+
     </div>
 </div>
         <div th:insert="fragments/footer :: footer"></div>

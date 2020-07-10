@@ -1,0 +1,17 @@
+body {
+    background-color: #fffbff;
+    /*background-image: url("background.jpg");*/
+
+}
+
+div {
+    color: black;
+    border-radius: 4px;
+    background: #fffbff;
+}
+
+div.jumbotron{
+    border-radius: 4px;
+    background: #fffbff;
+}
+

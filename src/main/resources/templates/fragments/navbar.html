@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
 <navbar th:fragment="navbar">
-<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: red">
+<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: red; margin-bottom: 80px">
     <!-- Brand/logo -->
 
     <a class="navbar-brand" href="/home">
@@ -29,7 +29,7 @@
         </form>
 
         <li class="nav-item">
-            <div class="nav-link" sec:authorize="isAuthenticated()">
+            <div class="nav-link" sec:authorize="isAuthenticated()" style=" background:red;">
                 <span sec:authentication="name"></span>
                 <span sec:authorize="hasAuthority('ADMIN')">
                         - admin
@@ -58,8 +58,6 @@
         </li>
 
     </ul>
-
-
 
 </nav>
 </navbar>

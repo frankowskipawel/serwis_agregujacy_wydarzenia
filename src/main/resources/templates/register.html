@@ -6,8 +6,8 @@
 <body>
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-<div class="container">
-    <div class="row" style="margin-top:20px">
+
+    <div class="row" style="padding: 20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <form th:action="@{/register}" th:object="${user}" method="post">
                 <fieldset>
@@ -43,7 +43,7 @@
                 </fieldset>
             </form>
         </div>
-    </div>
+
 </div>
 </div>
 <div th:insert="fragments/footer :: footer"></div>
