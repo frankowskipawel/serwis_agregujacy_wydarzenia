@@ -43,7 +43,7 @@
         </thead>
         <tbody>
         <tr th:each="event:${pages}" th:object="${event}">
-            <td><img style="width:50px;" th:if="${event.picture != null}" class="img-thumbnail well"
+            <td><img style="width:170px;" th:if="${event.picture != null}" class="img-thumbnail well"
                      th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
             </td>
             <td><span th:text="${#dates.format(event.startDate, 'dd-MM-yyyy - (HH:mm)')}"></span></td>
@@ -59,7 +59,7 @@
             </div>
             <td>
                 <div class="btn-group-vertical">
-                    <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-primary btn-sm"
+                    <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-outline-danger btn-sm"
                        role="button">Show</a>
                 </div>
             </td>
