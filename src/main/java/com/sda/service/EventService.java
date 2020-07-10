@@ -69,4 +69,8 @@ public class EventService {
 
         return eventRepository.findAllByStartDateBeforeAndEndDateAfter(date, date);
     }
+
+    public void deleteEvent(Event event){
+        eventRepository.delete(event);
+    }
 }
