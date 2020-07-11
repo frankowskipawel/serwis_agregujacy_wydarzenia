@@ -67,7 +67,7 @@
 
 
                 <a th:if="${isEventSaved == true}" th:href="@{/event/cancelSavedEvent(id=${event.id})}"
-                   class="btn float-right btn-danger middle btn-lg" role="button">&#x2715;</a>
+                   class="btn float-right btn-success middle btn-lg" role="button">&#x2715;</a>
                 <a th:if="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
                    class="btn float-right btn-success middle btn-lg disabled" role="button">Saved &#x2713;</a>
                 <a th:unless="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"

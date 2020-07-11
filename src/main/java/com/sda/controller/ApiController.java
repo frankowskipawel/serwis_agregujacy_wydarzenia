@@ -28,6 +28,7 @@ public class ApiController {
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
 
+
     @GetMapping("/events/all")
     public String getEvents() {
         Gson gson = new Gson();

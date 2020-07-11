@@ -165,6 +165,7 @@ public class MyAccountController {
 
     @GetMapping("/editAccount")
     public String editAccount(Model model) {
+        model.addAttribute("selectedMenu", "editAccount");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUsersByEmail(auth.getName());
         model.addAttribute("user", user);
@@ -173,7 +174,7 @@ public class MyAccountController {
     }
 
     @PostMapping("/editAccount")
-    public String editAccountPost(@Valid @ModelAttribute("user") User user, BindingResult result) {
+    public String editAccountPost(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "myAccount/editAccount";
         } else {
@@ -182,7 +183,6 @@ public class MyAccountController {
             userToSave.setFirstName(user.getFirstName());
             userToSave.setLastName(user.getLastName());
             userToSave.setName(user.getName());
-
 
             userService.save(userToSave);
             return "redirect:/myAccount/myEvents";

@@ -35,7 +35,7 @@
                                       required="true" th:field="*{description}"/>
                             <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
                                   class="text-danger"> Description error</span>
-                            <span style="color: red" th:if="${alertDescription != null}"
+                            <span style="color: lightgreen" th:if="${alertDescription != null}"
                                   th:text="${alertDescription}"> </span>
                         </div>
                         <div class="form-group">
@@ -74,7 +74,7 @@
                             <span style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-lg btn-outline-danger btn-block" value="Create"/>
+                            <input type="submit" class="btn btn-lg btn-outline-success btn-block" value="Create"/>
                         </div>
                     </fieldset>
                 </div>

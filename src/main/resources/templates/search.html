@@ -59,7 +59,7 @@
             </div>
             <td>
                 <div class="btn-group-vertical">
-                    <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-outline-danger btn-sm"
+                    <a th:href="@{/eventShow(eventId=${event.id})}" class="btn btn-outline-success btn-sm"
                        style="background-color: red; border-color: red; color: #fffbff;" role="button">&#128269;</a>
                 </div>
             </td>
@@ -68,16 +68,16 @@
     </table>
     <div class="container" align="center">
         <div class="btn-group" align="center">
-            <!--previous page--><a style="padding: 12px; color: #1e0009" th:if="${currentPage != null && currentPage!=1}"
-                                   th:href="@{|/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
+            <!--previous page--><a  type="button" class="btn btn-outline-success btn-sm" style="padding: 12px; color: black" th:if="${currentPage != null && currentPage!=1}"
+                                    th:href="@{|/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
             <span th:if="${pages.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
-                   <!--current page--><a style="padding: 12px; font-weight:bold; color: #1e0009" th:if="${currentPage == pageNumber}"
+                   <!--current page--><a type="button" class="btn btn-success btn-sm"  style="padding: 12px; color: black" th:if="${currentPage == pageNumber}"
                                          th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}+'  '"></a>
-                <!--other page--><a style="padding: 12px; color: #1e0009" th:if="${currentPage!=pageNumber}"
+                <!--other page--><a type="button" class="btn btn-outline-success btn-sm" style="padding: 12px; color: black" th:if="${currentPage!=pageNumber}"
                                     th:href="@{|/${list}?page=${pageNumber}|}" th:text="${pageNumber}"> </a>
                 </span>
-            <!--next page--><a style="padding: 12px; color: #1e0009" th:if="${currentPage != null &&  currentPage<pages.totalPages}"
-                               th:href="@{|/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
+            <!--next page--><a  type="button" class="btn btn-outline-success btn-sm" style="padding: 12px; color: black" th:if="${currentPage != null &&  currentPage<pages.totalPages}"
+                                th:href="@{|/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
         </div>
     </div>
 </div>

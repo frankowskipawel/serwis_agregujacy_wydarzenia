@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u WHERE u.email =:email")
-    User findUsersByEmail(String email);
+    User findUserByEmail(String email);
 
     @Query("SELECT u FROM User u " +
             "join u.SignUpEvents s " +

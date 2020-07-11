@@ -1,10 +1,7 @@
 package com.sda.service;
 
-import com.sda.entity.Event;
 import com.sda.entity.Role;
 import com.sda.entity.User;
-import com.sda.repository.EventRepository;
-import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,14 +28,14 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        User user = userRepository.findUsersByEmail(email);
+        User user = userRepository.findUserByEmail(email);
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
     }
 
     public User findUsersByEmail(String email) {
-        userRepository.findUsersByEmail(email);
-        return userRepository.findUsersByEmail(email);
+        userRepository.findUserByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
 

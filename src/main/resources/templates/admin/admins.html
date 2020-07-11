@@ -7,7 +7,7 @@
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
     <button id="btn-editEmail" th:object="${user}" modelAttribute="user" type="button" data-toggle="modal"
-            data-target="#addAdminModal" class="btn btn-outline-danger float-right"><span
+            data-target="#addAdminModal" class="btn btn-outline-success float-right"><span
             class="glyphicon glyphicon-pencil"></span>&#65291;
     </button>
     <br>
@@ -33,7 +33,7 @@
             <td><span th:text="${user.lastName}"></span></td>
             <td>
                 <div class="btn-group-vertical">
-                    <a th:href="@{/admin/deleteAdmin(userId=${user.id})}" class="btn btn-sm btn-outline-danger"
+                    <a th:href="@{/admin/deleteAdmin(userId=${user.id})}" class="btn btn-sm btn-outline-success"
                        role="button">delete</a>
                 </div>
             </td>

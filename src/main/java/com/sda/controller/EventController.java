@@ -41,10 +41,9 @@ public class EventController {
     @Autowired
     private PictureService pictureService;
     @Autowired
-
     private CommentsService commentsService;
 
-    private static Event currentEvent;
+    private Event currentEvent;
     @Autowired
     private EmailUtil emailUtill;
     @Autowired
@@ -210,7 +209,7 @@ public class EventController {
         return "event/editEvent";
     }
 
-    public static Event getCurrentEvent() {
+    public Event getCurrentEvent() {
         return currentEvent;
     }
 
