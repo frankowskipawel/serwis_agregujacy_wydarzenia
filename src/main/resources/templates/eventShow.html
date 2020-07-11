@@ -54,7 +54,8 @@
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <a th:if="${isMyEvent == true}" th:href="@{/event/editEvent(id=${event.id})}"
                    class="btn float-right btn-light middle btn-sm" role="button">&#9998;</a>
-                <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='modal-warning'+${event.id}"
+                <a  data-toggle="modal"
+                    data-target="#confirmModal"
                    th:if="${isMyEvent == true}" th:href="@{/event/deleteEvent(id=${event.id})}"
                    class="btn btn-danger float-right btn-light middle btn-sm" id="deleteButton">&#128465;</a>
 
@@ -73,7 +74,7 @@
                 <a th:if="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
                    class="btn float-right btn-success middle btn-lg disabled" role="button">Saved &#x2713;</a>
                 <a th:unless="${isEventSaved == true}" th:href="@{/event/signUpEvent(id=${event.id})}"
-                   class="btn float-right btn-success middle btn-lg" role="button">Sign up</a>
+                   class="btn float-right btn-success middle btn-lg"   role="button">Sign up</a>
                 <div>
                     <br>
                     <br>
@@ -125,13 +126,13 @@
         </div>
     </div>
 </div>
-<div class="modal modal-warning fade in" th:id="modal-warning+${event.id }">
-    <div class="modal-dialog">
+<div class="modal modal-warning fade in" id="confirmModal">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <h5 class="modal-title">Delete Event</h5>
+
             </div>
             <div class="modal-body">
                 <h3>Are you sure want to delete this event?</h3>
