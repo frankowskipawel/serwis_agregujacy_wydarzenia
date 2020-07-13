@@ -1,4 +1,4 @@
-package com.sda.controller;
+package com.sda.validators;
 
 import com.sda.entity.User;
 import com.sda.service.UserService;

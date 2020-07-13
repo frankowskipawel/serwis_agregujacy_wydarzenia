@@ -2,7 +2,6 @@ package com.sda.controller;
 
 
 import com.sda.entity.Event;
-import com.sda.service.EventService;
 import com.sda.storage.StorageFileNotFoundException;
 import com.sda.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +22,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/")
 public class FileUploadController {
 
+    @Autowired
+    private EventController eventController;
+
     private final StorageService storageService;
 
-    @Autowired
-    EventService eventService;
 
-    @Autowired
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
@@ -49,7 +48,9 @@ public class FileUploadController {
                                    @RequestParam(value = "event", required = false) Event event,
                                    RedirectAttributes redirectAttributes) throws IOException {
 
-        if (file.isEmpty()){return "redirect:/event/addEvent";}
+        if (file.isEmpty()) {
+            return "redirect:/event/addEvent";
+        }
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
@@ -58,8 +59,13 @@ public class FileUploadController {
                 path -> MvcUriComponentsBuilder.fromMethodName(com.sda.controller.FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
-
-        return "redirect:/event/addEvent?picture=" + storageService.getNameLastStorageFile();
+        if (eventController.getCurrentEvent()==null) {
+            return "redirect:/event/addEvent?picture=" + storageService.getNameLastStorageFile();
+        } else {
+            model.addAttribute("id",eventController.getCurrentEvent().getId());
+            return "redirect:/event/editEvent?picture=" + storageService.getNameLastStorageFile()+
+                    "&id="+eventController.getCurrentEvent().getId();
+        }
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

@@ -6,12 +6,12 @@
 <body>
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-    <h1>Please provide new event</h1>
+    <h1>Edit event</h1>
     <div class="container">
 
         <div class="form-group">
             <label>Please add your photo</label>
-            <form method="POST" enctype="multipart/form-data" action="/event/eventAddPhoto">
+            <form method="POST"   enctype="multipart/form-data" th:action="@{/event/eventAddPhoto}">
                 <table>
                     <tr>
                         <td><input type="file" name="file " class="btn btn-outline-light text-dark"/></td>
@@ -24,6 +24,8 @@
             <div class="row" style="margin-top:20px">
                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                     <fieldset>
+                        <input type="hidden" class="form-control input-lg" placeholder="title" required="true"
+                               th:field="*{id}"/>
                         <div class="form-group">
                             <input type="text" class="form-control input-lg" placeholder="title" required="true"
                                    th:field="*{title}"/>
@@ -35,7 +37,7 @@
                                       required="true" th:field="*{description}"/>
                             <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
                                   class="text-danger"> Description error</span>
-                            <span style="color: lightgreen" th:if="${alertDescription != null}"
+                            <span style="color: red" th:if="${alertDescription != null}"
                                   th:text="${alertDescription}"> </span>
                         </div>
                         <div class="form-group">
@@ -74,7 +76,7 @@
                             <span style="color: red" th:if="${alertEndDate != null}" th:text="${alertEndDate}"> </span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-lg btn-outline-success btn-block" value="Create"/>
+                            <input type="submit" class="btn btn-lg btn-outline-danger btn-block" value="Save"/>
                         </div>
                     </fieldset>
                 </div>
@@ -85,16 +87,13 @@
                         <img th:if="*{picture.fileName != null}" class="img-thumbnail"
                              th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
                         <img th:unless="*{picture.fileName != null}" class="img-thumbnail"
-                             th:src="@{|http://wegiel.home.pl/ourmeetup/nopictures.jpg|}"/>
+                             th:src="@{|http://wegiel.home.pl/ourmeetup/${event.picture.fileName}|}"/>
                     </div>
                 </div>
 
             </div>
         </form>
-
     </div>
-
-
 </div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>

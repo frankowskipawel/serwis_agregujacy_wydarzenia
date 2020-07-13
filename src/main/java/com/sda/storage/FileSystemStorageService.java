@@ -25,7 +25,7 @@ public class  FileSystemStorageService implements StorageService {
 
 
 	@Autowired
-	PictureService pictureService;
+	private PictureService pictureService;
 
 	private final Path rootLocation;
 	private String nameLastFile;
@@ -59,20 +59,11 @@ public class  FileSystemStorageService implements StorageService {
 			picture.setFileName(picture.getId()+"_"+picture.getFileName());
 			pictureService.savePicture(picture);
 
-			Thread thread = new Thread(){
-				public void run(){
-					FtpService ftpService = null;
-					try {
-						ftpService = new FtpService();
-						System.out.println("Upload start!");
-						ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
-						System.out.println("Upload done!");
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			};
-			thread.start();
+			FtpService ftpService = null;
+			ftpService = new FtpService();
+			System.out.println("Upload start!");
+			ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
+			System.out.println("Upload done!");
 
 			nameLastFile=picture.getFileName();
 
@@ -95,7 +86,6 @@ public class  FileSystemStorageService implements StorageService {
 		catch (IOException e) {
 			throw new StorageException("Failed to read stored files", e);
 		}
-
 	}
 
 	@Override
@@ -115,7 +105,6 @@ public class  FileSystemStorageService implements StorageService {
 			else {
 				throw new StorageFileNotFoundException(
 						"Could not read file: " + filename);
-
 			}
 		}
 		catch (MalformedURLException e) {

@@ -2,9 +2,10 @@ package com.sda.service;
 
 import com.sda.entity.Role;
 import com.sda.entity.User;
-import com.sda.repository.RoleRepository;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -26,20 +25,17 @@ public class UserService implements UserDetailsService {
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    @Autowired
-    private RoleRepository roleRepository;
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        User user = userRepository.findUsersByEmail(email);
+        User user = userRepository.findUserByEmail(email);
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
     }
 
     public User findUsersByEmail(String email) {
-        userRepository.findUsersByEmail(email);
-        return userRepository.findUsersByEmail(email);
+        userRepository.findUserByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
 
@@ -60,5 +56,27 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+    public User save(User user){
+        return userRepository.save(user);
+    }
 
+    public List<User> findAllBySignUpEventsContains(int event){
+       return  userRepository.findBySignUpEventsContains(event);
+    }
+
+    public List<User> findAll(){
+       return userRepository.findAll();
+    }
+
+    public Optional<User> findById(int id){
+        return userRepository.findById(id);
+    }
+
+    public Page<User> findAllByRoles(Pageable pageable, Role role){
+       return  userRepository.findAllByRoles(pageable,role);
+    }
+
+    public List<User> findAllByRoles(Role role){
+        return  userRepository.findAllByRoles(role);
+    }
 }
