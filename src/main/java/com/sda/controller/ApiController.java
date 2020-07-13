@@ -122,7 +122,7 @@ public class ApiController {
         return getApiModelEvent(event);
     }
 
-    @PostMapping("/events/newEvent")
+    @PostMapping("/events/new")
     public EventAPI createNewEvent(
             @RequestHeader(value = "title") String title,
             @RequestHeader(value = "city") String city,
@@ -152,7 +152,7 @@ public class ApiController {
         return getApiModelEvent(event);
     }
 
-    @RequestMapping(value = "/events/deleteEvent", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/events/delete", method = RequestMethod.DELETE)
     public String deleteEvent(
             @RequestHeader(value = "id") String id,
             @RequestHeader(value = "yourEmail") String email,
