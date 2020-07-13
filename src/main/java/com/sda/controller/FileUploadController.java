@@ -1,9 +1,7 @@
 package com.sda.controller;
 
 
-import com.sda.entity.Comment;
 import com.sda.entity.Event;
-import com.sda.service.EventService;
 import com.sda.storage.StorageFileNotFoundException;
 import com.sda.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +22,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/")
 public class FileUploadController {
 
+    @Autowired
+    private EventController eventController;
+
     private final StorageService storageService;
 
-    @Autowired
+
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
@@ -58,12 +59,12 @@ public class FileUploadController {
                 path -> MvcUriComponentsBuilder.fromMethodName(com.sda.controller.FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
-        if (EventController.getCurrentEvent()==null) {
+        if (eventController.getCurrentEvent()==null) {
             return "redirect:/event/addEvent?picture=" + storageService.getNameLastStorageFile();
         } else {
-            model.addAttribute("id",EventController.getCurrentEvent().getId());
+            model.addAttribute("id",eventController.getCurrentEvent().getId());
             return "redirect:/event/editEvent?picture=" + storageService.getNameLastStorageFile()+
-                    "&id="+EventController.getCurrentEvent().getId();
+                    "&id="+eventController.getCurrentEvent().getId();
         }
     }
 

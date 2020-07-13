@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+    <br>
+    <h2>API</h2>
+    <br>
+    <div id="accordion">
+
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                    Get all events
+                </a>
+            </div>
+            <div id="collapseOne" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/all
+                    method: GET
+                    parameters: no
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                    Get future events
+                </a>
+            </div>
+            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/future
+                    method: GET
+                    parameters: no
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                    Get past events
+                </a>
+            </div>
+            <div id="collapseThree" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/past
+                    method: GET
+                    parameters: no
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                    Get ongoing events
+                </a>
+            </div>
+            <div id="collapseFour" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/ongoing
+                    method: GET
+                    parameters: no
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+                    Get event by id
+                </a>
+            </div>
+            <div id="collapseFive" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/{id}
+                    method: GET
+                    parameters: int id
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">
+                    Edit update
+                </a>
+            </div>
+            <div id="collapseSix" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/update
+                    method: PUT
+                    parameters:
+                    "id" - required,
+                    "title", "city", "startDate", "endDate", "description", "yourEmail", "yourPassword"
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseSeven">
+                    Add new event
+                </a>
+            </div>
+            <div id="collapseSeven" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/newEvent
+                    method: POST
+                    parameters:
+                    "title",  "city", "startDate", "endDate", "description", "yourEmail", "yourPassword"
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="collapsed card-link" data-toggle="collapse" href="#collapseEight">
+                    Delete event
+                </a>
+            </div>
+            <div id="collapseEight" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    /events/deleteEvent
+                    method: DELETE
+                    parameters:
+                    "id", "yourEmail", "yourPassword"
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

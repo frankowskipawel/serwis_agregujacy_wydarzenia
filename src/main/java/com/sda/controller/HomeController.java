@@ -52,4 +52,10 @@ public class HomeController {
         }
         return "home";
     }
+
+    @GetMapping("/api")
+    public String apiInfo(){
+
+        return "api/apiInfo";
+    }
 }
